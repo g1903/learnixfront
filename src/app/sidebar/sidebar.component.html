@@ -1,7 +1,7 @@
-<div class="sidebar-wrapper collapsed">
+<div class="sidebar-wrapper">
     <div class="sidebar d-flex flex-column">
       <div class="sidebar-toggler mt-2 mb-2" (click)="toggleSidebar()">
-        <h3>{{ title }}</h3>
+        <h3>{{ title?.toUpperCase() }}</h3>
         <span><i class="bi bi-list"></i></span>
       </div>
       <hr class="mt-0">
