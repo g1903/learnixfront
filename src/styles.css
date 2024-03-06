@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --main-background-color: rgba(200, 224, 219, 0.4);
+  --main-font-color: #000000;
+  --main-hover-color : rgba(200, 224, 219, 1);
+  --main-border-color : rgba(200, 224, 219, 1);
+}
