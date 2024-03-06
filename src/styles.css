@@ -8,6 +8,7 @@
   --main-border-color : rgba(200, 224, 219, 1);
 }
 
-* {
+body {
   font-family: "Stick No Bills", sans-serif;
+  background-color: var(--main-background-color);
 }
