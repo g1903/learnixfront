@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {LectureContent} from "../../../Models/LectionContent";
 
 @Component({
   selector: 'app-lection-content',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './lection-content.component.css'
 })
 export class LectionContentComponent {
-
+  @Input() content: LectureContent | undefined;
 }
