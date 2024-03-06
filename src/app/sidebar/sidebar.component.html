@@ -1,7 +1,7 @@
-<div class="sidebar-wrapper collapsed">
+<div class="sidebar-wrapper">
     <div class="sidebar d-flex flex-column">
       <div class="sidebar-toggler mt-2 mb-2" (click)="toggleSidebar()">
-        <h3>{{ title }}</h3>
+        <h3>{{ title?.toUpperCase() }}</h3>
         <span><i class="bi bi-list"></i></span>
       </div>
       <hr class="mt-0">
@@ -55,16 +55,18 @@
       } @else {
         <hr class="mb-0 mt-0">
         <div class="sidebar-footer">
-          <div class="sidebar-action bg-success login"><i class="bi bi-box-arrow-in-right"></i><span>Anmelden</span></div>
+          <div class="sidebar-action login"><i class="bi bi-box-arrow-in-right"></i><span>Anmelden</span></div>
         </div>
       }
     </div>
-  <div class="main-content">
-    <div class="fixed-top mobile mb-0">
-      <div>
-        <button (click)="toggleSidebar()" class="btn"><i class="bi bi-list"></i></button>
+  <div class="container">
+    <div class="main-content">
+      <div class="fixed-top mobile mb-0">
+        <div>
+          <button (click)="toggleSidebar()" class="btn"><i class="bi bi-list"></i></button>
+        </div>
       </div>
+      <router-outlet></router-outlet>
     </div>
-    <router-outlet></router-outlet>
   </div>
 </div>
