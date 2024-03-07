@@ -1,13 +1,11 @@
-import { Component } from '@angular/core';
-import {LectureContent} from "../../Models/LectionContent";
-import {LectionContentComponent} from "./lection-content/lection-content.component";
+import {Component, Input, input} from '@angular/core';
 import {CommonModule} from "@angular/common";
+import {Lection} from "../../Models/Lection";
 
 @Component({
   selector: 'app-lection',
   standalone: true,
   imports: [
-    LectionContentComponent,
     CommonModule
   ],
   templateUrl: './lection.component.html',
@@ -15,8 +13,7 @@ import {CommonModule} from "@angular/common";
 })
 export class LectionComponent {
 
-  //public title: string;
-  public content: LectureContent[] = [];
+  protected lection: Lection | undefined;
 
   constructor() {
     this.generateExampleContent();
@@ -24,7 +21,7 @@ export class LectionComponent {
 
   private generateExampleContent():void{
     for (let i = 0; i < 4; i++) {
-      this.content.push(new LectureContent(i,'Title'+i,'Content'+i,i,'Text',1));
+
     }
 
   }

@@ -1,6 +1,8 @@
+import {Chapter} from "./Chapter";
+
 export class Quiz {
   constructor(
-    public id: number,
-    public lectionid: number
+    public quizId: number,
+    public chapter: Chapter
   ) {}
 }

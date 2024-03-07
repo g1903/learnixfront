@@ -1,10 +1,11 @@
+import {Quiz} from "./Quiz";
+
 export class QuizQuestion {
   constructor(
-    public id: number,
-    public type: string,
+    public quizQuestionId: number,
     public question: string,
     public content: string,
     public answer: string,
-    public quizId: number
+    public quiz: Quiz
   ) {}
 }
