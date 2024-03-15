@@ -3,6 +3,7 @@ import {Lection} from "./Lection";
 export class Chapter {
   constructor(
     public chapterId: number,
-    public lection: Lection
+    public chapterName: string,
+    public lectionId: number
   ) {}
 }

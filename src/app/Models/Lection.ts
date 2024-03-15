@@ -1,7 +1,9 @@
 export class Lection {
   constructor(
-    public id: number,
+    public lectionId: number,
     public title: string,
-    public creatorGuid: string
+    public creatorGuid: string,
+    public description: string,
+    public topicType: string
   ) {}
 }
