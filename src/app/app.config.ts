@@ -1,6 +1,6 @@
 import {APP_INITIALIZER, ApplicationConfig, importProvidersFrom} from '@angular/core';
-import {provideRouter} from '@angular/router';
-import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
+import { provideRouter } from '@angular/router';
+import { KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
 
 import { routes } from './app.routes';
 
@@ -19,17 +19,16 @@ export function initializeKeycloak(keycloak: KeycloakService): () => Promise<any
   return () =>
     keycloak.init({
       config: {
-        url: ' https://keycloak.szut.dev/auth',
-        realm: 'szut',
-        clientId: 'employee-management-service-frontend',
+        url: 'http://localhost:8080',
+        realm: 'learnix',
+        clientId: 'learnix-front',
       },
+      loadUserProfileAtStartUp: true,
       initOptions: {
-        onLoad: 'check-sso', //login-required auch möglich, führt zum Login-Zwang beim Aufruf der Startseite
+        onLoad: 'check-sso',
         checkLoginIframe: false,
         checkLoginIframeInterval: 25
       },
       enableBearerInterceptor: true,
     });
 }
-
-

@@ -1,0 +1,4 @@
+<h1>{{chapter?.chapterName}}</h1>
+<div *ngFor="let c of content$ | async">
+  <app-chapter-content [content]="c"></app-chapter-content>
+</div>
