@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Lection} from "../Models/Lection";
 import {Chapter} from "../Models/Chapter";
+import {ChapterContent} from "../Models/ChapterContent";
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,13 @@ export class HttpService {
 
   public GetChapters(id: number):Observable<Chapter[]>{
     return this.http.get<Chapter[]>('http://localhost:8081/chapters/byLection/'+id,{
+      headers: new HttpHeaders()
+        .set('Content-Type','application/json')
+    });
+  }
+
+  public GetChapterContent(chapterId: number):Observable<ChapterContent[]>{
+    return this.http.get<ChapterContent[]>('http://localhost:8081/chapter-contents/byChapter/'+chapterId,{
       headers: new HttpHeaders()
         .set('Content-Type','application/json')
     });

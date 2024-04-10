@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {ChapterContent} from "../../../../Models/ChapterContent";
 
 @Component({
   selector: 'app-chapter-content',
@@ -8,5 +9,6 @@ import { Component } from '@angular/core';
   styleUrl: './chapter-content.component.css'
 })
 export class ChapterContentComponent {
+  @Input() content: ChapterContent | undefined;
 
 }

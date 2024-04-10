@@ -28,7 +28,7 @@ export class LectionComponent {
     this.chapters$ = of([]);
   }
 
-  ngOnInit(){
+  ngOnInit():void{
     this.http.GetLection(Number(this.route.snapshot.paramMap.get('lectionId'))).then((result) => {
       if(result instanceof HttpErrorResponse){
         if(result.status === 404)
