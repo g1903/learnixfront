@@ -11,7 +11,4 @@
 body {
   font-family: "Stick No Bills", sans-serif;
   background-color: var(--main-background-color);
-  background-size: 100vw 100vh;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
 }
