@@ -9,6 +9,7 @@ import {LectionlistComponent} from "./Components/lectionlist/lectionlist.compone
 export const routes: Routes = [
   { path: '', component: LandingpageComponent, canActivate: [authGuard]},
   { path: 'lectionlist', component: LectionlistComponent, canActivate: [authGuard]},
+  { path: 'mylections', component: LectionlistComponent, canActivate: [authGuard]},
   { path: 'lection/:lectionId', component: LectionComponent, canActivate: [authGuard]},
   { path: 'lection/:lectionId/:chapterId', component: ChapterComponent, canActivate: [authGuard]},
   { path: '**', component: PageNotFoundComponent},
