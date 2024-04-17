@@ -5,7 +5,7 @@
 <div class="row">
   <ng-container *ngFor="let lection of lections$ | async">
     <div class="col-xs-4 col-lg-4">
-      <app-lektioncard [lection]="lection" [add]="!privateList" (click)="removeLectionFromList(lection)" ></app-lektioncard>
+      <app-lektioncard [lection]="lection" [add]="!privateList" (remove)="removeLectionFromList(lection)" ></app-lektioncard>
     </div>
   </ng-container>
 </div>

@@ -68,3 +68,13 @@
   transition: background 100ms linear, color 100ms linear;
 }
 
+.cardDelete{
+  position: absolute;
+  top: 3%;
+  left: 90%;
+}
+
+.cardDelete:hover{
+  cursor: pointer;
+}
+

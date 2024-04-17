@@ -20,6 +20,19 @@ export class HttpService {
     });
   }
 
+  public GetLectionProgress(UserGUID: string, lectionId: number):Promise<LectionProgress>{
+    return new Promise((resolve,reject) => {
+      this.http.get<LectionProgress>('http://localhost:8081/progress/' + UserGUID + '/' + lectionId).subscribe({
+        next: (response) => {
+          resolve(response);
+        },
+        error: (error) => {
+          console.log(error);
+          reject(error);
+        }
+      });
+    });
+  }
   public GetAllUserprogress(UserGUID: string):Promise<LectionProgress[]>{
     return new Promise((resolve, reject) => {
       this.http.get<LectionProgress[]>('http://localhost:8081/progress/' + UserGUID).subscribe({
@@ -45,7 +58,7 @@ export class HttpService {
     this.http.delete('http://localhost:8081/progress/' + UserGUID + '/' + LectionID,{
       headers: new HttpHeaders()
         .set('Content-Type','application/json')
-    });
+    }).subscribe(e => console.log(e));
   }
 
   public CreateUserProgress(UserGUID: string, LectionID: number): Promise<LectionProgress>{
