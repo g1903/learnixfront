@@ -28,6 +28,7 @@ export class LectionlistComponent {
   @ViewChild('dynamicComponentContainer', { read: ViewContainerRef }) dynamicComponentContainer: ViewContainerRef | undefined;
   protected lections$: Observable<Lection[]>;
   protected privateList: boolean = false;
+  protected noLections: boolean = false;
   private readonly UserGUID: string | undefined;
 
   constructor(private httpService: HttpService, private router: Router, private keycloak: KeycloakService) {
@@ -49,9 +50,11 @@ export class LectionlistComponent {
     );
   }
 
-  private fetchData():void{
-    if(this.privateList && this.UserGUID != undefined)
+  private fetchData():void {
+    if (this.privateList && this.UserGUID != undefined) {
       this.lections$ = this.httpService.GetSubscribedLections(this.UserGUID);
+      this.lections$.pipe(map(list => list.length <= 0)).subscribe(isEmpty => this.noLections = isEmpty);
+   }
     else if (this.UserGUID != undefined)
       this.lections$ = this.getUnsubscribedLections();
   }

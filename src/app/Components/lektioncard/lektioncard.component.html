@@ -6,7 +6,7 @@
       <h3>{{lection?.title}}</h3>
       <p>{{lection?.description}}</p>
 
-      <app-progress-chart *ngIf="!add" [percentage]="lectionProgress?.progress" ></app-progress-chart>
+      <app-progress-chart *ngIf="!add" [percentage]="lectionPercentage" ></app-progress-chart>
 
       <a *ngIf="add" (click)="removeLection()" class="neon-button">
         Lektion hinzufügen

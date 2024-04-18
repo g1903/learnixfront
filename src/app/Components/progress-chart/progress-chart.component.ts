@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Observable} from "rxjs";
-import {LectionProgress} from "../../../Models/LectionProgress";
+import {LectionProgress} from "../../Models/LectionProgress";
 
 @Component({
   selector: 'app-progress-chart',

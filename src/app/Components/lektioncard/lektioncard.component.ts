@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {Lection} from "../../Models/Lection";
 import {RouterLink} from "@angular/router";
-import {ProgressChartComponent} from "../lection/progress-chart/progress-chart.component";
+import {ProgressChartComponent} from "../progress-chart/progress-chart.component";
 import {Observable} from "rxjs";
 import {LectionProgress} from "../../Models/LectionProgress";
 import {HttpService} from "../../Services/http.service";
@@ -28,7 +28,7 @@ export class LektioncardComponent {
   @Input() lection: Lection | undefined;
   @Input() add: boolean | undefined;
   @Output() remove = new EventEmitter<Lection>();
-  protected lectionProgress: LectionProgress | undefined;
+  protected lectionPercentage : number = 0;
 
   constructor(private httpService: HttpService, private keycloak: KeycloakService) {
     if(this.add === undefined)
@@ -42,10 +42,21 @@ export class LektioncardComponent {
 
   private getProgress(){
     const userGUID: string | undefined = this.keycloak.getKeycloakInstance().subject;
-    if(userGUID != undefined && this.lection?.lectionId != undefined)
-      this.httpService.GetLectionProgress(userGUID, this.lection.lectionId).then((result) => {
-        this.lectionProgress = result;
-      })
+    let chapterCount: number = -1;
+    if(userGUID != undefined && this.lection?.lectionId != undefined) {
+      this.httpService.GetChapterCount(this.lection.lectionId).then((result) => {
+        if(result != undefined)
+          chapterCount = result;
+
+        if(chapterCount >= 0)
+          { // @ts-ignore
+            this.httpService.GetLectionProgress(userGUID, this.lection.lectionId).then((result) => {
+              if(result != undefined)
+                this.lectionPercentage = (result.progress/chapterCount) * 100;
+            });
+          }
+      });
+    }
   }
 
   protected removeLection():void{
