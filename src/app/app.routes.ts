@@ -1,9 +1,13 @@
 import { Routes } from '@angular/router';
-import {TestSiteComponent} from "./test-site/test-site.component";
+import {LectionComponent} from "./Components/lection/lection.component";
+import {LandingpageComponent} from "./Components/landingpage/landingpage.component";
+import {ChapterComponent} from "./Components/lection/chapter/chapter.component";
+import {PageNotFoundComponent} from "./Components/page-not-found/page-not-found.component";
+import {authGuard} from "./auth.guard";
 
 export const routes: Routes = [
-  {path: "", component: TestSiteComponent},
-  {path: "1", component: TestSiteComponent},
-  {path: "2", component: TestSiteComponent},
-  {path: "3", component: TestSiteComponent},
+  { path: '', component: LandingpageComponent, canActivate: [authGuard]},
+  { path: 'lection/:lectionId', component: LectionComponent, canActivate: [authGuard]},
+  { path: 'lection/:lectionId/:chapterId', component: ChapterComponent, canActivate: [authGuard]},
+  { path: '**', component: PageNotFoundComponent},
 ];
