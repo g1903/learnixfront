@@ -1,4 +1,4 @@
-import {APP_INITIALIZER, ApplicationConfig, importProvidersFrom} from '@angular/core';
+import {APP_INITIALIZER, ApplicationConfig, importProvidersFrom, isDevMode} from '@angular/core';
 import {provideRouter} from '@angular/router';
 import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
 
@@ -16,20 +16,25 @@ export const appConfig: ApplicationConfig = {
 };
 
 export function initializeKeycloak(keycloak: KeycloakService): () => Promise<any> {
-  return () =>
-    keycloak.init({
-      config: {
-        url: ' https://keycloak.szut.dev/auth',
-        realm: 'szut',
-        clientId: 'employee-management-service-frontend',
-      },
-      initOptions: {
-        onLoad: 'check-sso', //login-required auch möglich, führt zum Login-Zwang beim Aufruf der Startseite
-        checkLoginIframe: false,
-        checkLoginIframeInterval: 25
-      },
-      enableBearerInterceptor: true,
-    });
+  // Keycloak überspringen im DevMode -> Production aktivieren in main.ts
+  if (!isDevMode()){
+    return () =>
+      keycloak.init({
+        config: {
+          url: ' https://keycloak.szut.dev/auth',
+          realm: 'szut',
+          clientId: 'employee-management-service-frontend',
+        },
+        initOptions: {
+          onLoad: 'check-sso', //login-required auch möglich, führt zum Login-Zwang beim Aufruf der Startseite
+          checkLoginIframe: false,
+          checkLoginIframeInterval: 25
+        },
+        enableBearerInterceptor: true,
+      });
+  } else {
+    return () => Promise.resolve(true);
+  }
 }
 
 

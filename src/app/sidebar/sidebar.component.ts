@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, ElementRef, Input, isDevMode, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterLink, RouterOutlet} from "@angular/router";
 import {KeycloakService} from "keycloak-angular";
@@ -11,6 +11,8 @@ import {KeycloakService} from "keycloak-angular";
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
+  @ViewChild("sidebar") sidebar? : ElementRef;
+  @ViewChildren('arrow') arrows?: QueryList<ElementRef> | undefined;
   protected profileName: any;
   protected menuItems: { id: number, name: string, symbol?: string }[] = [
     { "id": 0, "name": "Home", "symbol": "bi-house" },
@@ -26,24 +28,41 @@ export class SidebarComponent {
     }
   }
 
+  ngAfterViewInit() {
+    this.arrows?.forEach(arrow => {
+      arrow.nativeElement.addEventListener('click', (event : Event) => {
+        if (event instanceof MouseEvent) { // Type guard for MouseEvent
+          const element = event.target as HTMLElement; // Now safe to access parentElement
+          const arrowParent = element.parentElement?.parentElement;
+          if (arrowParent) {
+            arrowParent.classList.toggle('showMenu');
+          } else {
+            console.warn('Clicked element does not have a suitable parent element');
+          }
+        }
+      });
+    });
+  }
+
   toggleSidebar() {
-    const sidebarElement = document.querySelector(".sidebar-wrapper") as HTMLDivElement;
-    sidebarElement.classList.toggle("collapsed");
-
-    const sidebarTogglerIcon = document.querySelector(".sidebar-toggler i") as HTMLSpanElement;
-
-    if (!sidebarElement.classList.contains("collapsed")) {
-      sidebarTogglerIcon.classList.add("bi-x-lg");
-    } else {
-      sidebarTogglerIcon.classList.remove("bi-x-lg");
-    }
-
-    const collapseElements = document.querySelectorAll('.collapse') as NodeListOf<HTMLDivElement>;
-    const collapseElementsArray = Array.from(collapseElements);
-
-    for (const collapseElement of collapseElementsArray) {
-      collapseElement.classList.remove('show');
-    }
+    // const sidebarElement = document.querySelector(".sidebar-wrapper") as HTMLDivElement;
+    // sidebarElement.classList.toggle("collapsed");
+    //
+    // const sidebarTogglerIcon = document.querySelector(".sidebar-toggler i") as HTMLSpanElement;
+    //
+    // if (!sidebarElement.classList.contains("collapsed")) {
+    //   sidebarTogglerIcon.classList.add("bi-x-lg");
+    // } else {
+    //   sidebarTogglerIcon.classList.remove("bi-x-lg");
+    // }
+    //
+    // const collapseElements = document.querySelectorAll('.collapse') as NodeListOf<HTMLDivElement>;
+    // const collapseElementsArray = Array.from(collapseElements);
+    //
+    // for (const collapseElement of collapseElementsArray) {
+    //   collapseElement.classList.remove('show');
+    // }
+    this.sidebar?.nativeElement.classList.toggle("close");
   }
 
   toggleDropdown(){
@@ -61,4 +80,6 @@ export class SidebarComponent {
     this.keycloak.logout(window.location.origin);
 
   }
+
+  protected readonly isDevMode = isDevMode;
 }
