@@ -10,5 +10,6 @@
 
 body {
   font-family: "Stick No Bills", sans-serif;
+  color: var(--main-font-color);
   background-color: var(--main-background-color);
 }

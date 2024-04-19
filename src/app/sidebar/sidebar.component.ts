@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, isDevMode} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterLink, RouterOutlet} from "@angular/router";
 import {KeycloakService} from "keycloak-angular";
@@ -23,6 +23,8 @@ export class SidebarComponent {
   constructor(protected keycloak: KeycloakService) {
     if (keycloak.isLoggedIn()) {
       keycloak.loadUserProfile().then(value => this.profileName = value.username);
+    } else {
+      this.profileName = 'Username';
     }
   }
 
@@ -61,4 +63,6 @@ export class SidebarComponent {
     this.keycloak.logout(window.location.origin);
 
   }
+
+  protected readonly isDevMode = isDevMode;
 }

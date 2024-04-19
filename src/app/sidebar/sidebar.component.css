@@ -10,6 +10,10 @@
   border-right: 1px solid var(--main-border-color);
 }
 
+.sidebar .nav .nav-item:hover {
+  background-color: var(--main-hover-color);
+}
+
 .sidebar hr{
   opacity: 1;
   color: var(--main-border-color);
@@ -41,7 +45,6 @@
 
 .sidebar-action {
   color: var(--main-font-color);
-  padding: 15px;
   display: inline-flex;
   text-decoration: none;
   overflow: hidden;
@@ -61,22 +64,8 @@
 .sidebar-action span {
   display: inline-block;
   width: 100%;
-  margin-left: 10px;
-  margin-bottom: 0;
   overflow: hidden;
-}
-
-.profile {
-  padding: 10px;
-  min-height: 54px;
-}
-
-.sidebar-action:hover {
-  background-color: var(--main-hover-color);
-}
-
-.sidebar-link:hover {
-  background-color: var(--main-hover-color);
+  transition: width 0.3s;
 }
 
 .main-content {
@@ -88,12 +77,8 @@
   /*background-color: #3b434b !important;*/
 }
 
-.sidebar-footer .logout:hover {
-  background-color: darkred;
-}
-
-.sidebar-footer .login:hover {
-  background-color: var(--main-hover-color);
+.logout {
+  cursor: pointer;
 }
 
 .mobile {
@@ -103,6 +88,10 @@
 /* Sidebar collapsed */
 .collapsed .sidebar{
   width: 50px;
+}
+
+.collapsed .sidebar .sidebar-action {
+  overflow: hidden;
 }
 
 .collapsed .sidebar .sidebar-action span{
@@ -120,9 +109,24 @@
   transition: width 0.3s;
 }
 
+.collapsed .sidebar .nav .nav-item {
+  max-width: 50px;
+  overflow: hidden;
+}
+
 .collapsed .main-content {
   margin-left: 50px;
   transition: margin-left 0.3s;
+}
+
+.collapsed .sidebar .profile {
+  max-width: 50px;
+  overflow: hidden;
+}
+
+.collapsed .sidebar .profile span {
+  width:0;
+  transition: width 0.3s;
 }
 
 /* Toggle submenu indicator */
