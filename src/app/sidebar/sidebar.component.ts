@@ -45,35 +45,7 @@ export class SidebarComponent {
   }
 
   toggleSidebar() {
-    // const sidebarElement = document.querySelector(".sidebar-wrapper") as HTMLDivElement;
-    // sidebarElement.classList.toggle("collapsed");
-    //
-    // const sidebarTogglerIcon = document.querySelector(".sidebar-toggler i") as HTMLSpanElement;
-    //
-    // if (!sidebarElement.classList.contains("collapsed")) {
-    //   sidebarTogglerIcon.classList.add("bi-x-lg");
-    // } else {
-    //   sidebarTogglerIcon.classList.remove("bi-x-lg");
-    // }
-    //
-    // const collapseElements = document.querySelectorAll('.collapse') as NodeListOf<HTMLDivElement>;
-    // const collapseElementsArray = Array.from(collapseElements);
-    //
-    // for (const collapseElement of collapseElementsArray) {
-    //   collapseElement.classList.remove('show');
-    // }
     this.sidebar?.nativeElement.classList.toggle("close");
-  }
-
-  toggleDropdown(){
-    // @ts-ignore
-    const sidebar = document.querySelector(".sidebar-wrapper");
-    // @ts-ignore
-    if (sidebar.classList.contains("collapsed")){
-      // @ts-ignore
-      sidebar.classList.remove("collapsed");
-    }
-
   }
 
   logout() {
