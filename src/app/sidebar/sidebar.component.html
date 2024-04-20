@@ -71,136 +71,135 @@
 <!--  </div>-->
 <!--</div>-->
 <div class="sidebar" #sidebar>
+  <div class="nav-container">
   <div class="logo-details">
     <i class="bx bxs-bolt-circle"></i>
     <span class="logo_name">LEARNIX</span>
   </div>
-  <ul class="nav-links">
-    <li>
-      <a href="#">
-        <i class="bx bx-grid-alt"></i>
-        <span class="link_name">Dashboard</span>
-      </a>
-      <ul class="sub-menu blank">
-        <li><a class="link_name" href="#">Dashboard</a></li>
-      </ul>
-    </li>
-    <li>
-      <div class="icon-link">
-        <a href="#">
-          <i class="bx bx-collection"></i>
-          <span class="link_name">Lections</span>
-        </a>
-        <i class="bx bxs-chevron-down arrow" #arrow></i>
-      </div>
-      <ul class="sub-menu">
-        <li><a class="link_name" href="#">Lections</a></li>
-        <li><a href="#">HTML & CSS</a></li>
-        <li><a href="#">JavaScript</a></li>
-        <li><a href="#">PHP & MySQL</a></li>
-        <li><a href="#">HTML & CSS</a></li>
-        <li><a href="#">JavaScript</a></li>
-        <li><a href="#">PHP & MySQL</a></li>
-        <li><a href="#">HTML & CSS</a></li>
-        <li><a href="#">JavaScript</a></li>
-        <li><a href="#">PHP & MySQL</a></li>
-        <li><a href="#">HTML & CSS</a></li>
-        <li><a href="#">JavaScript</a></li>
-        <li><a href="#">PHP & MySQL</a></li>
-      </ul>
-    </li>
-    <li>
-      <div class="icon-link">
-        <a href="#">
-          <i class="bx bx-book-alt"></i>
-          <span class="link_name">Posts</span>
-        </a>
-        <i class="bx bxs-chevron-down arrow" #arrow></i>
-      </div>
-      <ul class="sub-menu">
-        <li><a class="link_name" href="#">Posts</a></li>
-        <li><a href="#">Web Design</a></li>
-        <li><a href="#">Login Form</a></li>
-        <li><a href="#">Card Design</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#">
-        <i class="bx bx-pie-chart-alt-2"></i>
-        <span class="link_name">Analytics</span>
-      </a>
-      <ul class="sub-menu blank">
-        <li><a class="link_name" href="#">Analytics</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#">
-        <i class="bx bx-pie-chart-alt-2"></i>
-        <span class="link_name">Chart</span>
-      </a>
-      <ul class="sub-menu blank">
-        <li><a class="link_name" href="#">Chart</a></li>
-      </ul>
-    </li>
-    <li>
-      <div class="icon-link">
-        <a href="#">
-          <i class="bx bx-plug"></i>
-          <span class="link_name">Plugins</span>
-        </a>
-        <i class="bx bxs-chevron-down arrow" #arrow></i>
-      </div>
-      <ul class="sub-menu">
-        <li><a class="link_name" href="#">Plugins</a></li>
-        <li><a href="#">UI Face</a></li>
-        <li><a href="#">Pigments</a></li>
-        <li><a href="#">Box Icons</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#">
-        <i class="bx bx-compass"></i>
-        <span class="link_name">Explore</span>
-      </a>
-      <ul class="sub-menu blank">
-        <li><a class="link_name" href="#">Explore</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#">
-        <i class="bx bx-history"></i>
-        <span class="link_name">History</span>
-      </a>
-      <ul class="sub-menu blank">
-        <li><a class="link_name" href="#">History</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#">
-        <i class="bx bx-cog"></i>
-        <span class="link_name">Settings</span>
-      </a>
-      <ul class="sub-menu blank">
-        <li><a class="link_name" href="#">Settings</a></li>
-      </ul>
-    </li>
-    @if(keycloak.isLoggedIn() || isDevMode()){
+
+    <ul class="nav-links">
       <li>
-        <div class="profile-details">
-          <div class="profile-content">
-            <img src="https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&q=70&fm=webp" alt="profile">
-          </div>
-          <div class="name-job">
-            <div class="profile_name">Prem Shahi</div>
-            <div class="job">Web Designer</div>
-          </div>
-          <i class="bx bx-log-out"></i>
-        </div>
+        <a routerLink="">
+          <i class="bx bx-grid-alt"></i>
+          <span class="link_name">Dashboard</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" routerLink="">Dashboard</a></li>
+        </ul>
       </li>
-    } @else {
       <li>
-        <div class="profile-details login">
-          <a href="#">
+        <div class="icon-link">
+          <a routerLink="">
+            <i class="bx bx-collection"></i>
+            <span class="link_name">Lections</span>
+          </a>
+          <i class="bx bxs-chevron-down arrow" #arrow></i>
+        </div>
+        <div>
+
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" routerLink="">Lections</a></li>
+          <li><a routerLink="">HTML & CSS</a></li>
+          <li><a routerLink="">JavaScript</a></li>
+          <li><a routerLink="">PHP & MySQL</a></li>
+          <li><a routerLink="">HTML & CSS</a></li>
+          <li><a routerLink="">JavaScript</a></li>
+          <li><a routerLink="">PHP & MySQL</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="icon-link">
+          <a routerLink="">
+            <i class="bx bx-book-alt"></i>
+            <span class="link_name">Posts</span>
+          </a>
+          <i class="bx bxs-chevron-down arrow" #arrow></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" routerLink="">Posts</a></li>
+          <li><a routerLink="">Web Design</a></li>
+          <li><a routerLink="">Login Form</a></li>
+          <li><a routerLink="">Card Design</a></li>
+        </ul>
+      </li>
+      <li>
+        <a routerLink="">
+          <i class="bx bx-pie-chart-alt-2"></i>
+          <span class="link_name">Analytics</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" routerLink="">Analytics</a></li>
+        </ul>
+      </li>
+      <li>
+        <a routerLink="">
+          <i class="bx bx-pie-chart-alt-2"></i>
+          <span class="link_name">Chart</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" routerLink="">Chart</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="icon-link">
+          <a routerLink="">
+            <i class="bx bx-plug"></i>
+            <span class="link_name">Plugins</span>
+          </a>
+          <i class="bx bxs-chevron-down arrow" #arrow></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" routerLink="">Plugins</a></li>
+          <li><a routerLink="">UI Face</a></li>
+          <li><a routerLink="">Pigments</a></li>
+          <li><a routerLink="">Box Icons</a></li>
+        </ul>
+      </li>
+      <li>
+        <a routerLink="">
+          <i class="bx bx-compass"></i>
+          <span class="link_name">Explore</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" routerLink="">Explore</a></li>
+        </ul>
+      </li>
+      <li>
+        <a routerLink="">
+          <i class="bx bx-history"></i>
+          <span class="link_name">History</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" routerLink="">History</a></li>
+        </ul>
+      </li>
+    </ul>
+    @if(keycloak.isLoggedIn() || isDevMode()){
+      <div class="profile-details">
+        <div class="icon-link">
+          <a routerLink="">
+            <div class="profile-content">
+              <img src="https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&q=70&fm=webp" alt="profile">
+            </div>
+            <div class="name-job">
+              <div class="profile_name">{{profileName}}</div>
+              <div class="job">Web Designer</div>
+            </div>
+          </a>
+          <i class="bx bxs-chevron-down arrow" #arrow></i>
+      </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" routerLink="">Profile</a></li>
+          <li><a routerLink="">Profile</a></li>
+          <li><a routerLink="">My Lections</a></li>
+          <li><a routerLink="">Settings</a></li>
+        </ul>
+      </div>
+    } @else {
+      <div class="profile-details login">
+        <div class="icon-link">
+          <a routerLink="">
             <div class="profile-content">
               <i class="bx bx-log-in"></i>
             </div>
@@ -209,15 +208,16 @@
             </div>
           </a>
         </div>
-      </li>
+      </div>
     }
-  </ul>
+  </div>
 </div>
 <section class="home-section">
   <div class="home-content">
     <i class="bx bx-menu" (click)="toggleSidebar()"></i>
     <span class="text">Drop Down Sidebar</span>
   </div>
+  <router-outlet></router-outlet>
 </section>
 
 
