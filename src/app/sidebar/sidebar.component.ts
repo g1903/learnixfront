@@ -2,6 +2,7 @@ import {Component, ElementRef, Input, isDevMode, QueryList, ViewChild, ViewChild
 import { CommonModule } from '@angular/common';
 import {RouterLink, RouterOutlet} from "@angular/router";
 import {KeycloakService} from "keycloak-angular";
+import {ExtendedKeycloakProfile} from "../extended-keycloak-profile";
 
 @Component({
   selector: 'app-sidebar',
@@ -14,6 +15,7 @@ export class SidebarComponent {
   @ViewChild("sidebar") sidebar? : ElementRef;
   @ViewChildren('arrow') arrows?: QueryList<ElementRef> | undefined;
   protected profileName: any;
+  protected profileJob: any;
   protected menuItems: { id: number, name: string, symbol?: string }[] = [
     { "id": 0, "name": "Home", "symbol": "bi-house" },
     { "id": 1, "name": "Lections", "symbol": "bi-book"},
@@ -24,7 +26,13 @@ export class SidebarComponent {
 
   constructor(protected keycloak: KeycloakService) {
     if (keycloak.isLoggedIn()) {
-      keycloak.loadUserProfile().then(value => this.profileName = value.username);
+      keycloak.loadUserProfile().then(async (value) => {
+        const typedValue = value as ExtendedKeycloakProfile;
+
+        this.profileName = typedValue.username;
+        this.profileJob = typedValue.attributes.job;
+        console.log(typedValue);
+      });
     }
   }
 
