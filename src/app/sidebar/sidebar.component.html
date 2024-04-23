@@ -1,9 +1,11 @@
 <div class="sidebar" #sidebar>
   <div class="nav-container">
-  <div class="logo-details">
-    <i class="bx bxs-bolt-circle"></i>
-    <span class="logo_name">LEARNIX</span>
-  </div>
+    <div class="logo-details">
+      <a routerLink="">
+        <i class="bx bxs-bolt-circle"></i>
+        <span class="logo_name">LEARNIX</span>
+      </a>
+    </div>
 
     <ul class="nav-links">
       <li>
@@ -28,12 +30,9 @@
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" routerLink="">Lections</a></li>
-          <li><a routerLink="">HTML & CSS</a></li>
-          <li><a routerLink="">JavaScript</a></li>
-          <li><a routerLink="">PHP & MySQL</a></li>
-          <li><a routerLink="">HTML & CSS</a></li>
-          <li><a routerLink="">JavaScript</a></li>
-          <li><a routerLink="">PHP & MySQL</a></li>
+          <ng-container *ngFor="let lection of lections$ | async">
+            <li><a [routerLink]="['/lection/', lection.lectionId]">{{lection.title}}</a></li>
+          </ng-container>
         </ul>
       </li>
       <li>

@@ -3,11 +3,16 @@ import { CommonModule } from '@angular/common';
 import {RouterLink, RouterOutlet} from "@angular/router";
 import {KeycloakService} from "keycloak-angular";
 import {ExtendedKeycloakProfile} from "../extended-keycloak-profile";
+import {Observable, of} from "rxjs";
+import {Lection} from "../Models/Lection";
+import {HttpService} from "../Services/http.service";
+import {HttpClientModule} from "@angular/common/http";
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterOutlet],
+  imports: [CommonModule, RouterLink, RouterOutlet, HttpClientModule],
+  providers: [HttpService],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
@@ -16,6 +21,8 @@ export class SidebarComponent {
   @ViewChildren('arrow') arrows?: QueryList<ElementRef> | undefined;
   protected profileName: any;
   protected profileJob: any;
+  protected lections$: Observable<Lection[]>;
+
   protected menuItems: { id: number, name: string, symbol?: string }[] = [
     { "id": 0, "name": "Home", "symbol": "bi-house" },
     { "id": 1, "name": "Lections", "symbol": "bi-book"},
@@ -24,7 +31,7 @@ export class SidebarComponent {
   ];
   @Input() title?: string;
 
-  constructor(protected keycloak: KeycloakService) {
+  constructor(protected keycloak: KeycloakService, protected httpService: HttpService) {
     if (keycloak.isLoggedIn()) {
       keycloak.loadUserProfile().then(async (value) => {
         const typedValue = value as ExtendedKeycloakProfile;
@@ -34,6 +41,9 @@ export class SidebarComponent {
         console.log(typedValue);
       });
     }
+
+    this.lections$ = of([]);
+    this.fetchData();
   }
 
   ngAfterViewInit() {
@@ -59,6 +69,10 @@ export class SidebarComponent {
   logout() {
     this.keycloak.logout(window.location.origin);
 
+  }
+
+  private fetchData():void{
+    this.lections$ = this.httpService.GetLections();
   }
 
   protected readonly isDevMode = isDevMode;

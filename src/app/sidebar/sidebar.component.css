@@ -32,11 +32,15 @@
 .sidebar .logo-details {
   height: 60px;
   width: 100%;
+}
+
+.sidebar .logo-details a {
+  text-decoration: none;
   display: flex;
   align-items: center;
 }
 
-.sidebar .logo-details i {
+.sidebar .logo-details a i {
   font-size: 30px;
   color: var(--main-sidebar-font-color);
   height: 50px;
@@ -46,7 +50,7 @@
   cursor: pointer;
 }
 
-.sidebar .logo-details .logo_name {
+.sidebar .logo-details a .logo_name {
   font-size: 22px;
   color: var(--main-sidebar-font-color);
   font-weight: 600;
