@@ -282,6 +282,7 @@
 
 .sidebar.close .nav-container .profile-details.login i {
   display: block;
+  opacity: 1;
 }
 
 .sidebar .nav-container .profile-details .job {
