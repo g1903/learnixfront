@@ -79,7 +79,7 @@
 }
 
 .sidebar .nav-container .nav-links li .icon-link,
-.sidebar .nav-container .profile-details.icon-link {
+.sidebar .nav-container .profile-details .icon-link {
   display: flex;
   align-items: center;
   justify-content: space-between;
