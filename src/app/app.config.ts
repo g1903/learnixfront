@@ -1,7 +1,6 @@
-import {APP_INITIALIZER, ApplicationConfig, importProvidersFrom} from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
-import { isDevMode } from '@angular/core';
+import {APP_INITIALIZER, ApplicationConfig, importProvidersFrom, isDevMode} from '@angular/core';
+import {provideRouter} from '@angular/router';
+import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
 
 import { routes } from './app.routes';
 
@@ -37,5 +36,6 @@ export function initializeKeycloak(keycloak: KeycloakService): () => Promise<any
   } else {
     return () => Promise.resolve(true);
   }
-
 }
+
+

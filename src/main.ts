@@ -3,7 +3,6 @@ import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
 import {enableProdMode} from "@angular/core";
 
-// enableProdMode(); //enable Production Mode
+enableProdMode(); //enable Production Mode
 bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));
-
