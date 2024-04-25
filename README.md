@@ -2,6 +2,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.2.
 
+## Enabling Production Mode
+Keycloak is disabled in DevMode to configure the frontend without Keycloak and backend / Docker required.
+Enable production Mode by uncomment the enableProdMode()-Function in the main.ts. 
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

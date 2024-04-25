@@ -1,15 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Stick+No+Bills:wght@200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --main-background-color: rgba(200, 224, 219, 1);
+  --main-background-color: rgba(200, 224, 219, 0.4);
   --main-font-color: #000000;
   --main-hover-color : rgba(200, 224, 219, 1);
   --main-border-color : rgba(200, 224, 219, 1);
+
+  /* Sidebar */
+  --main-sidebar-background-color: /*rgba(200, 224, 219, 0.4);*/ /* Alternativ: */ #11101d;
+  --secondary-sidebar-background-color: /*rgba(200, 224, 219, 1);*/ /* Alternativ:*/ #1d1b31;
+  --main-sidebar-font-color: #fff;
 }
 
 body {
-  font-family: "Stick No Bills", sans-serif;
+  font-family: "Poppins","Stick No Bills", sans-serif;
   background-color: var(--main-background-color);
   /*background-image: url("background.png");*/
   background-size: 100vw 100vh;

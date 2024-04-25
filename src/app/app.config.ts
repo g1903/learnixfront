@@ -1,6 +1,6 @@
-import {APP_INITIALIZER, ApplicationConfig, importProvidersFrom} from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
+import {APP_INITIALIZER, ApplicationConfig, importProvidersFrom, isDevMode} from '@angular/core';
+import {provideRouter} from '@angular/router';
+import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
 
 import { routes } from './app.routes';
 
@@ -16,19 +16,26 @@ export const appConfig: ApplicationConfig = {
 };
 
 export function initializeKeycloak(keycloak: KeycloakService): () => Promise<any> {
-  return () =>
-    keycloak.init({
-      config: {
-        url: 'http://localhost:8080',
-        realm: 'learnix',
-        clientId: 'learnix-front',
-      },
-      loadUserProfileAtStartUp: true,
-      initOptions: {
-        onLoad: 'check-sso',
-        checkLoginIframe: false,
-        checkLoginIframeInterval: 25
-      },
-      enableBearerInterceptor: true,
-    });
+  // Keycloak überspringen im DevMode -> Production aktivieren in main.ts
+  if (!isDevMode()){
+    return () =>
+      keycloak.init({
+        config: {
+          url: 'http://localhost:8080',
+          realm: 'learnix',
+          clientId: 'learnix-front',
+        },
+        loadUserProfileAtStartUp: true,
+        initOptions: {
+          onLoad: 'check-sso',
+          checkLoginIframe: false,
+          checkLoginIframeInterval: 25
+        },
+        enableBearerInterceptor: true,
+      });
+  } else {
+    return () => Promise.resolve(true);
+  }
 }
+
+
