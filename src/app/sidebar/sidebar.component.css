@@ -259,6 +259,7 @@
 
 .sidebar .nav-container .profile-details.login a{
   width: 100%;
+  cursor: pointer;
 }
 
 .sidebar.close .nav-container .profile-details {
