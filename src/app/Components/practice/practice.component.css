@@ -1,0 +1,22 @@
+.themen-button {
+  position: relative;
+  background-color: #679289;
+  border: none;
+  color: white;
+  text-align: center;
+  padding: 10%;  /* Anpassen, um die Größe der Schaltflächen zu ändern */
+  text-decoration: none;
+  display: inline-block;
+  font-size: 30px;  /* Erhöhen Sie die Schriftgröße */
+  margin: 200px 50px;
+}
+
+/* Verwenden Sie Flexbox, um die Schaltflächen in der Mitte zu positionieren */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center; /* Zentrieren Sie den Text in den Kästchen */
+  margin-left: 200px; /* Verschieben Sie die Kästchen mehr nach rechts */
+}

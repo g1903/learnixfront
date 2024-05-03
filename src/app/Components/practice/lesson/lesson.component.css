@@ -1,0 +1,31 @@
+.button {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* This makes the container take the full height of the viewport */
+}
+
+.custom-button {
+  background-color: #679289;
+  color: white;
+  margin: 10px;
+  padding: 25px 400px;
+  padding-right: 550px;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  width: 80%; /* Set a specific width */
+  max-width: 500px; /* Set a maximum width */
+
+}
+
