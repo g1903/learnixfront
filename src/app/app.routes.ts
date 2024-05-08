@@ -5,9 +5,11 @@ import {ChapterComponent} from "./Components/lection/chapter/chapter.component";
 import {PageNotFoundComponent} from "./Components/page-not-found/page-not-found.component";
 import {authGuard} from "./auth.guard";
 import {LectionlistComponent} from "./Components/lectionlist/lectionlist.component";
+import {UserprofileComponent} from "./Components/userprofile/userprofile.component";
 
 export const routes: Routes = [
-  { path: '', component: LandingpageComponent, canActivate: [authGuard]},
+  { path: '', component: LandingpageComponent},
+  { path: 'profile', component: UserprofileComponent, canActivate: [authGuard]},
   { path: 'lectionlist', component: LectionlistComponent, canActivate: [authGuard]},
   { path: 'mylections', component: LectionlistComponent, canActivate: [authGuard]},
   { path: 'lection/:lectionId', component: LectionComponent, canActivate: [authGuard]},
