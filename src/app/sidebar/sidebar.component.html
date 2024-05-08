@@ -29,7 +29,7 @@
 
         </div>
         <ul class="sub-menu">
-          <li><a class="link_name" routerLink="">Lections</a></li>
+          <li><a class="link_name" routerLink="lectionlist">Lections</a></li>
           <ng-container *ngFor="let lection of lections$ | async">
             <li><a [routerLink]="['/lection/', lection.lectionId]">{{lection.title}}</a></li>
           </ng-container>
@@ -117,8 +117,8 @@
           <i class="bx bxs-chevron-down arrow" #arrow></i>
       </div>
         <ul class="sub-menu">
-          <li><a class="link_name" routerLink="">Profile</a></li>
-          <li><a routerLink="">My Lections</a></li>
+          <li><a class="link_name" routerLink="profile">Profile</a></li>
+          <li><a routerLink="mylections">My Lections</a></li>
           <li><a routerLink="">Settings</a></li>
           <li class="logout" (click)="logout()">Logout</li>
         </ul>
