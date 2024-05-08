@@ -5,10 +5,15 @@ import {ChapterComponent} from "./Components/lection/chapter/chapter.component";
 import {PageNotFoundComponent} from "./Components/page-not-found/page-not-found.component";
 import {authGuard} from "./auth.guard";
 import {PracticeComponent} from "./Components/practice/practice.component";
-import {LessonComponent} from "./Components/practice/lesson/lesson.component";
+import {LessonComponent} from "./Components/practice/learn/learn-lf09/lesson/lesson.component";
 import {QuizComponent} from "./Components/lection/quiz/quiz.component";
-import {IndexCardsComponent} from "./Components/practice/index-cards/index-cards.component";
-import {QuizzComponent} from "./Components/practice/quizz/quizz.component";
+import {IndexCardsComponent} from "./Components/practice/learn/learn-lf09/index-cards/index-cards.component";
+import {QuizzComponent} from "./Components/practice/learn/learn-lf09/quizz/quizz.component";
+import {LearnCSSComponent} from "./Components/practice/learn/learn-css/learn-css.component";
+import {LearnHtmlComponent} from "./Components/practice/learn/learn-html/learn-html.component";
+import {LearnJSComponent} from "./Components/practice/learn/learn-js/learn-js.component";
+import {LearnLF02Component} from "./Components/practice/learn/learn-lf02/learn-lf02.component";
+import {LearnLF09Component} from "./Components/practice/learn/learn-lf09/learn-lf09.component";
 
 export const routes: Routes = [
   { path: '', component: LandingpageComponent, canActivate: [authGuard]},
@@ -18,6 +23,11 @@ export const routes: Routes = [
   { path: 'lesson', component: LessonComponent},
   { path: 'quizz', component: QuizzComponent},
   { path: 'index-cards', component: IndexCardsComponent},
+  { path: 'learn-css', component: LearnCSSComponent},
+  { path: 'learn-html', component: LearnHtmlComponent},
+  { path: 'learn-js', component: LearnJSComponent},
+  { path: 'learn-lf02', component: LearnLF02Component},
+  { path: 'learn-lf09', component: LearnLF09Component},
   { path: '**',component: PageNotFoundComponent},
 
 ];

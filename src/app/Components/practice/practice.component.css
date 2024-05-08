@@ -4,19 +4,23 @@
   border: none;
   color: white;
   text-align: center;
-  padding: 10%;  /* Anpassen, um die Größe der Schaltflächen zu ändern */
+  padding: 5%;  /* Anpassen, um die Größe der Schaltflächen zu ändern */
   text-decoration: none;
   display: inline-block;
-  font-size: 30px;  /* Erhöhen Sie die Schriftgröße */
-  margin: 200px 50px;
+  font-size: 40px;  /* Erhöhen Sie die Schriftgröße */
+  margin: 90px; /* Abstand zwischen den Schaltflächen */
+  width: 300px;
 }
 
 /* Verwenden Sie Flexbox, um die Schaltflächen in der Mitte zu positionieren */
-.container {
+.box {
   display: flex;
+  flex-wrap: wrap; /* Erlaubt das Umbruch der Schaltflächen auf neue Zeilen */
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   text-align: center; /* Zentrieren Sie den Text in den Kästchen */
-  margin-left: 200px; /* Verschieben Sie die Kästchen mehr nach rechts */
+  margin-left: 10px; /* Verschieben Sie die Kästchen mehr nach rechts */
 }
+
+
+

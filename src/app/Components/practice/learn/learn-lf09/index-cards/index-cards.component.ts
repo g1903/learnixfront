@@ -2,18 +2,18 @@ import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-lesson',
+  selector: 'app-index-cards',
   standalone: true,
   imports: [],
-  templateUrl: './lesson.component.html',
-  styleUrl: './lesson.component.css'
+  templateUrl: './index-cards.component.html',
+  styleUrl: './index-cards.component.css'
 })
-export class LessonComponent {
+export class IndexCardsComponent {
   constructor(private router: Router) {
   }
 
   goBack(){
-    this.router.navigate(['/practice']);
+    this.router.navigate(['/learn-lf09']);
   }
 
 }
