@@ -4,7 +4,7 @@
 
 :root {
   /* Main */
-  --main-background-color: rgba(200, 224, 219, 0.4);
+  --main-background-color: rgba(200, 224, 219, 0.4); /* Alternativ: #E4E9F7 */
   --main-font-color: #000000;
   --main-hover-color : rgba(200, 224, 219, 1);
   --main-border-color : rgba(200, 224, 219, 1);
