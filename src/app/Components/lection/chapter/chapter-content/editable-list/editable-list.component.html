@@ -1,0 +1,21 @@
+<div (click)="openEditor()">
+  <ul>
+    <li *ngFor="let item of items">{{ item }}</li>
+  </ul>
+</div>
+
+<div *ngIf="isEditing" class="editor-backdrop" (click)="closeEditor()">
+  <div class="editor" (click)="$event.stopPropagation()">
+    <h3>Liste bearbeiten</h3>
+    <ul>
+      <li *ngFor="let item of items; let i = index">
+        <input [(ngModel)]="items[i]" />
+        <button (click)="removeItem(i)">Entfernen</button>
+      </li>
+    </ul>
+    <input [(ngModel)]="newItem" placeholder="Neues Item" />
+    <button (click)="addItem()">Hinzufügen</button>
+    <br />
+    <button (click)="closeEditor()">Speichern</button>
+  </div>
+</div>

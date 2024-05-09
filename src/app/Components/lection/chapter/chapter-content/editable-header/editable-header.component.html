@@ -1,0 +1,28 @@
+<div (click)="openEditor()">
+  <ng-container [ngSwitch]="headerLevel">
+    <h1 *ngSwitchCase="'h1'">{{ headerText }}</h1>
+    <h2 *ngSwitchCase="'h2'">{{ headerText }}</h2>
+    <h3 *ngSwitchCase="'h3'">{{ headerText }}</h3>
+  </ng-container>
+</div>
+
+<div *ngIf="isEditing" class="editor-backdrop" (click)="closeEditor()">
+  <div class="editor" (click)="$event.stopPropagation()">
+    <h3>Titel bearbeiten</h3>
+    <textarea [(ngModel)]="headerText" rows="3" cols="30"></textarea>
+    <br />
+    <label>
+      <input type="radio" [(ngModel)]="headerLevel" value="h1" /> h1
+    </label>
+    <br />
+    <label>
+      <input type="radio" [(ngModel)]="headerLevel" value="h2" /> h2
+    </label>
+    <br />
+    <label>
+      <input type="radio" [(ngModel)]="headerLevel" value="h3" /> h3
+    </label>
+    <br />
+    <button (click)="closeEditor()">Speichern</button>
+  </div>
+</div>
