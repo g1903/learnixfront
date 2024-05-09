@@ -2,7 +2,7 @@
 
 <div *ngIf="isEditing" class="editor-backdrop" (click)="closeEditor()">
   <div class="editor" (click)="$event.stopPropagation()">
-    <textarea [(ngModel)]="text" rows="5" cols="30"></textarea>
+    <textarea [(ngModel)]="edtText" rows="5" cols="30"></textarea>
     <button (click)="closeEditor()">Speichern</button>
   </div>
 </div>

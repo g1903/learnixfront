@@ -19,7 +19,7 @@
     <table>
       <thead>
       <tr>
-        <th *ngFor="let header of headers; let i = index; trackBy: trackByIndex">
+        <th *ngFor="let header of edtHeaders; let i = index; trackBy: trackByIndex">
           <button (click)="removeColumn(i)">Spalte entfernen</button>
           <input [value]="header" (input)="updateHeader(i, $event)" />
         </th>
@@ -29,7 +29,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let row of rows; let rowIndex = index; trackBy: trackByIndex">
+      <tr *ngFor="let row of edtRows; let rowIndex = index; trackBy: trackByIndex">
         <td *ngFor="let cell of row; let colIndex = index; trackBy: trackByIndex">
           <input [value]="cell" (input)="updateCell(rowIndex, colIndex, $event)" />
         </td>
@@ -38,7 +38,7 @@
         </td>
       </tr>
       <tr>
-        <td *ngFor="let header of headers"></td>
+        <td *ngFor="let header of edtHeaders"></td>
         <td>
           <button (click)="addRow()">Reihe hinzufügen</button>
         </td>

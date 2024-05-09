@@ -9,18 +9,18 @@
 <div *ngIf="isEditing" class="editor-backdrop" (click)="closeEditor()">
   <div class="editor" (click)="$event.stopPropagation()">
     <h3>Titel bearbeiten</h3>
-    <textarea [(ngModel)]="headerText" rows="3" cols="30"></textarea>
+    <textarea [(ngModel)]="edtHeaderText" rows="3" cols="30"></textarea>
     <br />
     <label>
-      <input type="radio" [(ngModel)]="headerLevel" value="h1" /> h1
+      <input type="radio" [(ngModel)]="edtHeaderLevel" value="h1" /> h1
     </label>
     <br />
     <label>
-      <input type="radio" [(ngModel)]="headerLevel" value="h2" /> h2
+      <input type="radio" [(ngModel)]="edtHeaderLevel" value="h2" /> h2
     </label>
     <br />
     <label>
-      <input type="radio" [(ngModel)]="headerLevel" value="h3" /> h3
+      <input type="radio" [(ngModel)]="edtHeaderLevel" value="h3" /> h3
     </label>
     <br />
     <button (click)="closeEditor()">Speichern</button>

@@ -11,25 +11,29 @@ import { FormsModule } from '@angular/forms';
 })
 export class EditableListComponent {
   items: string[] = ['Item 1', 'Item 2', 'Item 3'];
+  edtItems: string[] = [];
   newItem: string = '';
   isEditing: boolean = false;
 
   openEditor() {
+    this.edtItems = this.items.slice();
     this.isEditing = true;
   }
 
   closeEditor() {
+    this.items = this.edtItems.slice();
     this.isEditing = false;
+    this.edtItems = [];
   }
 
   addItem() {
     if (this.newItem.trim()) {
-      this.items.push(this.newItem.trim());
+      this.edtItems.push(this.newItem.trim());
       this.newItem = '';
     }
   }
 
   removeItem(index: number) {
-    this.items.splice(index, 1);
+    this.edtItems.splice(index, 1);
   }
 }

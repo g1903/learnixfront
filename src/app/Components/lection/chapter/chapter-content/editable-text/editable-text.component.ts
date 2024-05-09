@@ -11,13 +11,16 @@ import {CommonModule, NgIf} from "@angular/common";
 })
 export class EditableTextComponent {
   text: string = 'Lorem ipsum';
+  edtText: string = '';
   isEditing: boolean = false;
 
   openEditor() {
     this.isEditing = true;
+    this.edtText = '';
   }
 
   closeEditor() {
     this.isEditing = false;
+    this.text = this.edtText;
   }
 }

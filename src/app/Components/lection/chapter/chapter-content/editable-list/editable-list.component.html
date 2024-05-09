@@ -8,8 +8,8 @@
   <div class="editor" (click)="$event.stopPropagation()">
     <h3>Liste bearbeiten</h3>
     <ul>
-      <li *ngFor="let item of items; let i = index">
-        <input [(ngModel)]="items[i]" />
+      <li *ngFor="let item of edtItems; let i = index">
+        <input [(ngModel)]="edtItems[i]" />
         <button (click)="removeItem(i)">Entfernen</button>
       </li>
     </ul>
