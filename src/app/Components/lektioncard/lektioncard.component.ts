@@ -3,8 +3,6 @@ import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {Lection} from "../../Models/Lection";
 import {RouterLink} from "@angular/router";
 import {ProgressChartComponent} from "../progress-chart/progress-chart.component";
-import {Observable} from "rxjs";
-import {LectionProgress} from "../../Models/LectionProgress";
 import {HttpService} from "../../Services/http.service";
 import {HttpClientModule} from "@angular/common/http";
 import {KeycloakService} from "keycloak-angular";

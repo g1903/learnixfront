@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {CommonModule, NgIf} from "@angular/common";
 import {ChapterContent} from "../../../../../Models/ChapterContent";
@@ -11,9 +11,10 @@ import {HttpService} from "../../../../../Services/http.service";
   templateUrl: './editable-text.component.html',
   styleUrls: ['./editable-text.component.css']
 })
-export class EditableTextComponent {
+export class EditableTextComponent{
   @Input() originalContent: ChapterContent | undefined;
-  protected text: string = 'Lorem ipsum';
+  @Output() notifyParent: EventEmitter<boolean> = new EventEmitter();
+  protected text: string = '';
   protected edtText: string = '';
   protected isEditing: boolean = false;
 
@@ -48,5 +49,23 @@ export class EditableTextComponent {
     if(this.originalContent !== undefined) {
       this.edtText = this.originalContent.content;
     }
+  }
+
+  protected delete():void{
+    if(this.originalContent !== undefined)
+      this.http.DeleteChapterContent(this.originalContent.chapterContentId).subscribe(e => {
+        this.notifyParent.emit();
+      });
+  }
+
+  protected deserialize(serializedString: string, restore = false): void {
+    if(restore)
+      this.edtText = serializedString
+    else
+      this.text = serializedString;
+  }
+
+  protected serialize(): string {
+    return this.text;
   }
 }

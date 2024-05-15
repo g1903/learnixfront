@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {ChapterContent} from "../../../../../Models/ChapterContent";
@@ -13,11 +13,9 @@ import {HttpService} from "../../../../../Services/http.service";
 })
 export class EditableTableComponent {
   @Input() originalContent: ChapterContent | undefined;
-  protected headers: string[] = ['Header 1', 'Header 2', 'Header 3'];
-  protected rows: string[][] = [
-    ['Row 1 Col 1', 'Row 1 Col 2', 'Row 1 Col 3'],
-    ['Row 2 Col 1', 'Row 2 Col 2', 'Row 2 Col 3']
-  ];
+  @Output() notifyParent: EventEmitter<boolean> = new EventEmitter();
+  protected headers: string[] = [];
+  protected rows: string[][] = [];
   protected edtHeaders: string[] = [];
   protected edtRows: string[][] = [];
   protected isEditing: boolean = false;

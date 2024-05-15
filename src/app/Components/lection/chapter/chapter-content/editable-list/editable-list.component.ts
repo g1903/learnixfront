@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {HttpService} from "../../../../../Services/http.service";
@@ -13,7 +13,8 @@ import {ChapterContent} from "../../../../../Models/ChapterContent";
 })
 export class EditableListComponent {
   @Input() originalContent: ChapterContent | undefined;
-  protected items: string[] = ['Item 1', 'Item 2', 'Item 3'];
+  @Output() notifyParent: EventEmitter<boolean> = new EventEmitter();
+  protected items: string[] = [];
   protected edtItems: string[] = [];
   protected newItem: string = '';
   protected isEditing: boolean = false;
@@ -70,6 +71,13 @@ export class EditableListComponent {
   protected restore(): void {
     if(this.originalContent !== undefined)
       this.deserializeList(this.originalContent.content, true);
+  }
+
+  protected delete():void{
+    if(this.originalContent !== undefined)
+      this.http.DeleteChapterContent(this.originalContent.chapterContentId).subscribe(e => {
+        this.notifyParent.emit();
+      });
   }
 
   private serializeList(): string {

@@ -3,9 +3,9 @@
 </div>
 
 <ng-container *ngIf="privateList">
-  <div ng class="row">
+  <div class="row">
     <div class="col-xs-2 col-lg-2">
-      <button routerLink="/newLection" type="button" class="btn btn-primary">Neue Lektion</button>
+      <button type="button" class="btn btn-primary" (click)="openNewLectionDialog()">Neue Lektion</button>
     </div>
   </div>
 </ng-container>
@@ -13,7 +13,7 @@
 <div class="row">
   <ng-container *ngFor="let lection of lections$ | async">
     <div class="col-xs-4 col-lg-4">
-      <app-lektioncard [lection]="lection" [add]="!privateList" (remove)="removeLectionFromList(lection)" ></app-lektioncard>
+      <app-lektioncard [lection]="lection" [add]="!privateList" (remove)="removeLectionFromList(lection)"></app-lektioncard>
     </div>
   </ng-container>
   <ng-container *ngIf="noLections">
@@ -21,4 +21,13 @@
   </ng-container>
 </div>
 
-
+<!-- Dialog für neue Lektion -->
+<div *ngIf="isDialogOpen" class="modal-backdrop">
+  <div class="modal-content">
+    <h3>Neue Lektion hinzufügen</h3>
+    <input type="text" [(ngModel)]="newLectionName" placeholder="Name der Lektion" />
+    <textarea [(ngModel)]="newLectionDescription" rows="3" placeholder="Beschreibung der Lektion"></textarea>
+    <button (click)="addNewLection()">Hinzufügen</button>
+    <button (click)="closeDialog()">Abbrechen</button>
+  </div>
+</div>

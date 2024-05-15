@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {HttpService} from "../../../../../Services/http.service";
@@ -14,6 +14,7 @@ import {ChapterContent} from "../../../../../Models/ChapterContent";
 })
 export class EditableHeaderComponent {
   @Input() originalContent: ChapterContent | undefined;
+  @Output() notifyParent: EventEmitter<boolean> = new EventEmitter();
   @Input() editable: boolean | undefined;
   protected headerText: string = 'Titel 01';
   protected headerLevel: string = 'h1';

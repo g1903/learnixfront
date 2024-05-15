@@ -165,4 +165,39 @@ export class HttpService {
     });
   }
 
+  public CreateChapter(newChapter: Chapter): Promise<Chapter>{
+    return new Promise((resolve, reject) => {
+      this.http.post('http://localhost:8081/chapters', newChapter).subscribe({
+        next: (response: any) => {
+          resolve(response);
+        },
+        error: (error) => {
+          console.error(error);
+          reject(error);
+        }
+      });
+    });
+  }
+
+  public CreateLection(newLection: Lection): Promise<Lection>{
+    return new Promise((resolve, reject) => {
+      this.http.post('http://localhost:8081/lections', newLection).subscribe({
+        next: (response: any) => {
+          resolve(response);
+        },
+        error: (error) => {
+          console.error(error);
+          reject(error);
+        }
+      });
+    });
+  }
+
+  public DeleteChapterContent(ChapterContentId: number):Observable<void>{
+    return this.http.delete<void>('http://localhost:8081/chapter-contents/' + ChapterContentId,{
+      headers: new HttpHeaders()
+        .set('Content-Type','application/json')
+    });
+  }
+
 }
