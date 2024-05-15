@@ -1,2 +1,8 @@
-<h3>{{this.cont?.title}}</h3>
-<div [innerHTML]="cont?.content"></div>
+<div>
+  <ng-container [ngSwitch]="cont?.contentType">
+    <app-editable-header *ngSwitchCase="0" [originalContent]="cont?.content"]></app-editable-header>
+    <app-editable-text *ngSwitchCase="1" [originalContent]="cont?.content"]></app-editable-text>
+    <app-editable-list *ngSwitchCase="2" [originalContent]="cont?.content"]></app-editable-list>
+    <app-editable-table *ngSwitchCase="3" [originalContent]="cont?.content"]></app-editable-table>
+  </ng-container>
+</div>

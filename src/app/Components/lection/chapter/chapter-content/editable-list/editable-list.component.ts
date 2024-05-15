@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -10,30 +10,70 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./editable-list.component.css']
 })
 export class EditableListComponent {
-  items: string[] = ['Item 1', 'Item 2', 'Item 3'];
-  edtItems: string[] = [];
-  newItem: string = '';
-  isEditing: boolean = false;
+  @Input() originalContent: string | undefined;
+  protected items: string[] = ['Item 1', 'Item 2', 'Item 3'];
+  protected edtItems: string[] = [];
+  protected newItem: string = '';
+  protected isEditing: boolean = false;
 
-  openEditor() {
-    this.edtItems = this.items.slice();
+  constructor() {
+
+  }
+
+  ngOnInit():void {
+    if(this.originalContent === undefined)
+      this.originalContent = ''
+    else
+      this.deserializeList(this.originalContent);
+  }
+
+  protected openEditor() {
+    this.edtItems = [...this.items];
     this.isEditing = true;
   }
 
-  closeEditor() {
-    this.items = this.edtItems.slice();
+  protected closeEditor(save: boolean) {
+    if (save) {
+      this.items = [...this.edtItems];
+      console.log(this.serializeList());
+      this.deserializeList(this.serializeList());
+    }
     this.isEditing = false;
-    this.edtItems = [];
   }
 
-  addItem() {
+  protected addItem() {
     if (this.newItem.trim()) {
       this.edtItems.push(this.newItem.trim());
       this.newItem = '';
     }
   }
 
-  removeItem(index: number) {
+  protected removeItem(index: number) {
     this.edtItems.splice(index, 1);
+  }
+
+  protected updateItem(index: number, event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    this.edtItems[index] = inputElement.value;
+  }
+
+  protected trackByIndex(index: number, item: string): any {
+    return index;
+  }
+
+  protected restore(): void {
+    if(this.originalContent !== undefined)
+      this.deserializeList(this.originalContent);
+  }
+
+  private serializeList(): string {
+    const escape = (str: string): string => str.replace(/,/g, '%2C').replace(/\|/g, '%7C');
+    const itemsString = this.items.map(escape).join(',');
+    return itemsString;
+  }
+
+  private deserializeList(serializedList: string): void {
+    const unescape = (str: string): string => str.replace(/%2C/g, ',').replace(/%7C/g, '|');
+    this.items = serializedList.split(',').map(unescape);
   }
 }

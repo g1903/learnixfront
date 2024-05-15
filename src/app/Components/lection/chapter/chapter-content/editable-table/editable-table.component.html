@@ -13,7 +13,7 @@
   </table>
 </div>
 
-<div *ngIf="isEditing" class="editor-backdrop" (click)="closeEditor()">
+<div *ngIf="isEditing" class="editor-backdrop" (click)="closeEditor(false)">
   <div class="editor" (click)="$event.stopPropagation()">
     <h3>Table bearbeiten</h3>
     <table>
@@ -45,6 +45,6 @@
       </tr>
       </tbody>
     </table>
-    <button (click)="closeEditor()">Speichern</button>
+    <button (click)="closeEditor(true)">Speichern</button>
   </div>
 </div>

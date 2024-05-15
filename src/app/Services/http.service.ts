@@ -120,20 +120,11 @@ export class HttpService {
     });
   }
 
-  public GetChapterContent(chapterId: number):Promise<ChapterContent[]>{
-    return new Promise((resolve, reject) => {
-      this.http.get<ChapterContent[]>('http://localhost:8081/chapter-contents/byChapter/'+chapterId,{
-        headers: new HttpHeaders()
-          .set('Content-Type','application/json')
-      }).subscribe({
-        next: (response) => {
-          resolve(response);
-        },
-        error: (error) => {
-          console.error(error);
-          reject(error);
-        }
-      });
+  public GetChapterContent(chapterId: number):Observable<ChapterContent[]>{
+    return this.http.get<ChapterContent[]>('http://localhost:8081/chapter-contents/byChapter/'+chapterId,{
+      headers: new HttpHeaders()
+        .set('Content-Type','application/json')
     });
   }
+
 }

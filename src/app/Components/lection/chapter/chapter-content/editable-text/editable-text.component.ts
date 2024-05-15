@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {CommonModule, NgIf} from "@angular/common";
 
@@ -10,17 +10,35 @@ import {CommonModule, NgIf} from "@angular/common";
   styleUrls: ['./editable-text.component.css']
 })
 export class EditableTextComponent {
-  text: string = 'Lorem ipsum';
-  edtText: string = '';
-  isEditing: boolean = false;
+  @Input() originalContent: string | undefined;
+  protected text: string = 'Lorem ipsum';
+  protected edtText: string = '';
+  protected isEditing: boolean = false;
 
-  openEditor() {
-    this.isEditing = true;
-    this.edtText = '';
+  constructor() {
+
   }
 
-  closeEditor() {
+  ngOnInit():void {
+    if(this.originalContent === undefined)
+      this.originalContent = '';
+    this.text = this.originalContent;
+  }
+
+  protected openEditor() {
+    this.edtText = this.text;
+    this.isEditing = true;
+  }
+
+  protected closeEditor(save: boolean) {
     this.isEditing = false;
-    this.text = this.edtText;
+    if(save) {
+      this.text = this.edtText;
+    }
+  }
+
+  protected restore(): void {
+    if(this.originalContent !== undefined)
+      this.text = this.originalContent;
   }
 }
