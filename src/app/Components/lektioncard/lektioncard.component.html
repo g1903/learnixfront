@@ -1,6 +1,7 @@
 <div class="cardcontainer">
   <div class="card">
     <i *ngIf="!add" (click)="removeLection()" class="bi bi-trash3 cardDelete"></i>
+    <i *ngIf="owner" [routerLink]="['/lection/', lection?.lectionId]" [queryParams]="{editMode:true}"class="bi bi-pencil cardEdit"></i>
     <div class="content">
       <h2>{{lection?.topicType}}</h2>
       <h3>{{lection?.title}}</h3>

@@ -18,14 +18,17 @@ import {ChapterComponent} from "./chapter/chapter.component";
 })
 export class LectionComponent {
 
+  protected editMode: boolean = false;
   protected lection: Lection | undefined;
   protected selectedChapterId: number | undefined;
   protected chapters$: Observable<Chapter[]>;
+
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private http: HttpService) {
     this.chapters$ = of([]);
+    this.editMode = this.route.snapshot.queryParams['editMode'];
   }
 
   ngOnInit():void{

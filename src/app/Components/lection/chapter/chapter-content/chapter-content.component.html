@@ -1,8 +1,8 @@
 <div>
   <ng-container [ngSwitch]="cont?.contentType">
-    <app-editable-header *ngSwitchCase="0" [originalContent]="cont?.content"]></app-editable-header>
-    <app-editable-text *ngSwitchCase="1" [originalContent]="cont?.content"]></app-editable-text>
-    <app-editable-list *ngSwitchCase="2" [originalContent]="cont?.content"]></app-editable-list>
-    <app-editable-table *ngSwitchCase="3" [originalContent]="cont?.content"]></app-editable-table>
+    <app-editable-header *ngSwitchCase="0" [originalContent]="cont"]></app-editable-header>
+    <app-editable-text *ngSwitchCase="1" [originalContent]="cont"]></app-editable-text>
+    <app-editable-list *ngSwitchCase="2" [originalContent]="cont"]></app-editable-list>
+    <app-editable-table *ngSwitchCase="3" [originalContent]="cont"]></app-editable-table>
   </ng-container>
 </div>

@@ -1,6 +1,8 @@
 import {Component, Input} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import {HttpService} from "../../../../../Services/http.service";
+import {ChapterContent} from "../../../../../Models/ChapterContent";
 
 @Component({
   selector: 'app-editable-list',
@@ -10,21 +12,17 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./editable-list.component.css']
 })
 export class EditableListComponent {
-  @Input() originalContent: string | undefined;
+  @Input() originalContent: ChapterContent | undefined;
   protected items: string[] = ['Item 1', 'Item 2', 'Item 3'];
   protected edtItems: string[] = [];
   protected newItem: string = '';
   protected isEditing: boolean = false;
 
-  constructor() {
-
-  }
+  constructor(private http: HttpService) {}
 
   ngOnInit():void {
-    if(this.originalContent === undefined)
-      this.originalContent = ''
-    else
-      this.deserializeList(this.originalContent);
+    if(this.originalContent !== undefined)
+      this.deserializeList(this.originalContent.content);
   }
 
   protected openEditor() {
@@ -35,8 +33,7 @@ export class EditableListComponent {
   protected closeEditor(save: boolean) {
     if (save) {
       this.items = [...this.edtItems];
-      console.log(this.serializeList());
-      this.deserializeList(this.serializeList());
+      this.save();
     }
     this.isEditing = false;
   }
@@ -46,6 +43,11 @@ export class EditableListComponent {
       this.edtItems.push(this.newItem.trim());
       this.newItem = '';
     }
+  }
+
+  private save():void{
+    if(this.originalContent !== undefined)
+      this.http.SaveChapterContent(this.originalContent, this.serializeList());
   }
 
   protected removeItem(index: number) {
@@ -62,8 +64,10 @@ export class EditableListComponent {
   }
 
   protected restore(): void {
-    if(this.originalContent !== undefined)
-      this.deserializeList(this.originalContent);
+    if(this.originalContent !== undefined) {
+      this.deserializeList(this.originalContent.content);
+      this.edtItems = [...this.items];
+    }
   }
 
   private serializeList(): string {

@@ -22,8 +22,7 @@ export class EditableHeaderComponent {
   protected isEditing: boolean = false;
 
 
-  constructor(private http: HttpService) {
-  }
+  constructor(private http: HttpService) {}
 
   ngOnInit():void {
     if(this.originalContent !== undefined)
@@ -43,11 +42,13 @@ export class EditableHeaderComponent {
     if(save){
       this.headerText = this.edtHeaderText;
       this.headerLevel = this.edtHeaderLevel;
+      this.save();
     }
   }
 
   private save():void {
-
+    if (this.originalContent !== undefined)
+      this.http.SaveChapterContent(this.originalContent, this.serializeHeader());
   }
 
   protected restore(): void {

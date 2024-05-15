@@ -29,6 +29,7 @@ export class LektioncardComponent {
   @Input() add: boolean | undefined;
   @Output() remove = new EventEmitter<Lection>();
   protected lectionPercentage : number = 0;
+  protected owner: boolean = false;
 
   constructor(private httpService: HttpService, private keycloak: KeycloakService) {
     if(this.add === undefined)
@@ -42,6 +43,7 @@ export class LektioncardComponent {
 
   private getProgress(){
     const userGUID: string | undefined = this.keycloak.getKeycloakInstance().subject;
+    this.owner = userGUID === this.lection?.creatorGuid;
     let chapterCount: number = -1;
     if(userGUID != undefined && this.lection?.lectionId != undefined) {
       this.httpService.GetChapterCount(this.lection.lectionId).then((result) => {

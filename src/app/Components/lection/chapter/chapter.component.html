@@ -1,9 +1,9 @@
 <h1>{{chapter?.chapterName}}</h1>
 <div *ngFor="let c of content$ | async">
   <ng-container [ngSwitch]="c.contentType">
-    <app-editable-header *ngSwitchCase="0" [originalContent]="c.content"></app-editable-header>
-    <app-editable-text *ngSwitchCase="1" [originalContent]="c.content"></app-editable-text>
-    <app-editable-list *ngSwitchCase="2" [originalContent]="c.content"></app-editable-list>
-    <app-editable-table *ngSwitchCase="3" [originalContent]="c.content"></app-editable-table>
+    <app-editable-header *ngSwitchCase="0" [originalContent]="c" [editable]="true"></app-editable-header>
+    <app-editable-text *ngSwitchCase="1" [originalContent]="c"></app-editable-text>
+    <app-editable-list *ngSwitchCase="2" [originalContent]="c"></app-editable-list>
+    <app-editable-table *ngSwitchCase="3" [originalContent]="c"></app-editable-table>
   </ng-container>
 </div>

@@ -2,6 +2,14 @@
   <h1>Suche</h1>
 </div>
 
+<ng-container *ngIf="privateList">
+  <div ng class="row">
+    <div class="col-xs-2 col-lg-2">
+      <button routerLink="/newLection" type="button" class="btn btn-primary">Neue Lektion</button>
+    </div>
+  </div>
+</ng-container>
+
 <div class="row">
   <ng-container *ngFor="let lection of lections$ | async">
     <div class="col-xs-4 col-lg-4">
@@ -12,4 +20,5 @@
     <p>Noch keine Lektionen ausgesucht?</p>
   </ng-container>
 </div>
+
 

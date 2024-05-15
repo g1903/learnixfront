@@ -1,6 +1,8 @@
 import {Component, Input} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import {ChapterContent} from "../../../../../Models/ChapterContent";
+import {HttpService} from "../../../../../Services/http.service";
 
 @Component({
   selector: 'app-editable-table',
@@ -10,7 +12,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./editable-table.component.css']
 })
 export class EditableTableComponent {
-  @Input() originalContent: string | undefined;
+  @Input() originalContent: ChapterContent | undefined;
   protected headers: string[] = ['Header 1', 'Header 2', 'Header 3'];
   protected rows: string[][] = [
     ['Row 1 Col 1', 'Row 1 Col 2', 'Row 1 Col 3'],
@@ -20,15 +22,11 @@ export class EditableTableComponent {
   protected edtRows: string[][] = [];
   protected isEditing: boolean = false;
 
-  constructor() {
-
-  }
+  constructor(private http: HttpService) {}
 
   ngOnInit():void {
-    if(this.originalContent === undefined)
-      this.originalContent = ''
-    else
-      this.deserializeTable(this.originalContent);
+    if(this.originalContent !== undefined)
+      this.deserializeTable(this.originalContent.content);
   }
 
   protected openEditor() {
@@ -41,10 +39,16 @@ export class EditableTableComponent {
     if(save){
       this.headers = this.edtHeaders.slice();
       this.rows = this.edtRows.map(subArray => subArray.slice());
+      this.save();
     }
     this.edtHeaders = [];
     this.edtRows.forEach(subArray => subArray.length = 0);
     this.isEditing = false;
+  }
+
+  private save():void{
+    if(this.originalContent !== undefined)
+      this.http.SaveChapterContent(this.originalContent, this.serializeTable());
   }
 
   protected addRow() {
@@ -81,8 +85,11 @@ export class EditableTableComponent {
   }
 
   protected restore(): void {
-    if(this.originalContent !== undefined)
-      this.deserializeTable(this.originalContent);
+    if(this.originalContent !== undefined) {
+      this.deserializeTable(this.originalContent.content);
+      this.edtHeaders = this.headers.slice();
+      this.edtRows = this.rows.map(subArray => subArray.slice());
+    }
   }
 
   private serializeTable(): string {

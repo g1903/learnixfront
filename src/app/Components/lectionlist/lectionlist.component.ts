@@ -5,7 +5,7 @@ import {HttpService} from "../../Services/http.service";
 import {AsyncPipe, CommonModule, NgForOf} from "@angular/common";
 import {LektioncardComponent} from "../lektioncard/lektioncard.component";
 import {HttpClientModule} from "@angular/common/http";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {KeycloakService} from "keycloak-angular";
 import {LectionProgress} from "../../Models/LectionProgress";
 import {resolve} from "@angular/compiler-cli";
@@ -18,7 +18,8 @@ import {resolve} from "@angular/compiler-cli";
     NgForOf,
     LektioncardComponent,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    RouterLink
   ],
   providers: [HttpService],
   templateUrl: './lectionlist.component.html',

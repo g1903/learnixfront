@@ -6,6 +6,6 @@ export class ChapterContent {
     public content: string,
     public contentOrder: number,
     public contentType: number,
-    public chapter: Chapter
+    public chapterId: number
   ) {}
 }
