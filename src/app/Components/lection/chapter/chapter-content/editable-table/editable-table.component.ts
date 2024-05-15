@@ -25,8 +25,12 @@ export class EditableTableComponent {
   constructor(private http: HttpService) {}
 
   ngOnInit():void {
-    if(this.originalContent !== undefined)
+    if(this.originalContent !== undefined){
+      if(this.originalContent.content === '')
+        this.originalContent.content = 'Header 1,Header 2,Header 3| , , ; , , ';
+
       this.deserializeTable(this.originalContent.content);
+    }
   }
 
   protected openEditor() {
@@ -85,11 +89,8 @@ export class EditableTableComponent {
   }
 
   protected restore(): void {
-    if(this.originalContent !== undefined) {
-      this.deserializeTable(this.originalContent.content);
-      this.edtHeaders = this.headers.slice();
-      this.edtRows = this.rows.map(subArray => subArray.slice());
-    }
+    if(this.originalContent !== undefined)
+      this.deserializeTable(this.originalContent.content, true);
   }
 
   private serializeTable(): string {
@@ -99,10 +100,16 @@ export class EditableTableComponent {
     return `${headersString}|${rowsString}`;
   }
 
-  private deserializeTable(serializedTable: string): void {
+  private deserializeTable(serializedTable: string, restore=false): void {
     const unescape = (str: string): string => str.replace(/%2C/g, ',').replace(/%7C/g, '|');
     const [headersString, rowsString] = serializedTable.split('|');
-    this.headers = headersString.split(',').map(unescape);
-    this.rows = rowsString.split(';').map(row => row.split(',').map(unescape));
+
+    if(restore){
+      this.edtHeaders = headersString.split(',').map(unescape);
+      this.edtRows = rowsString.split(';').map(row => row.split(',').map(unescape));
+    } else {
+      this.headers = headersString.split(',').map(unescape);
+      this.rows = rowsString.split(';').map(row => row.split(',').map(unescape));
+    }
   }
 }

@@ -7,3 +7,4 @@
     <app-editable-table *ngSwitchCase="3" [originalContent]="c"></app-editable-table>
   </ng-container>
 </div>
+<app-new-chapter-content [chapter]="chapter" (notifyParent)="fetchData()"></app-new-chapter-content>

@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 import {HttpService} from "../../../../../Services/http.service";
 import {ChapterContent} from "../../../../../Models/ChapterContent";
 
@@ -21,8 +21,12 @@ export class EditableListComponent {
   constructor(private http: HttpService) {}
 
   ngOnInit():void {
-    if(this.originalContent !== undefined)
+    if(this.originalContent !== undefined) {
+      if(this.originalContent.content === '')
+        this.originalContent.content = 'Item 1,Item 2,Item 3';
+
       this.deserializeList(this.originalContent.content);
+    }
   }
 
   protected openEditor() {
@@ -64,20 +68,21 @@ export class EditableListComponent {
   }
 
   protected restore(): void {
-    if(this.originalContent !== undefined) {
-      this.deserializeList(this.originalContent.content);
-      this.edtItems = [...this.items];
-    }
+    if(this.originalContent !== undefined)
+      this.deserializeList(this.originalContent.content, true);
   }
 
   private serializeList(): string {
     const escape = (str: string): string => str.replace(/,/g, '%2C').replace(/\|/g, '%7C');
-    const itemsString = this.items.map(escape).join(',');
-    return itemsString;
+    return this.items.map(escape).join(',');
   }
 
-  private deserializeList(serializedList: string): void {
+  private deserializeList(serializedList: string, restore = false): void {
     const unescape = (str: string): string => str.replace(/%2C/g, ',').replace(/%7C/g, '|');
-    this.items = serializedList.split(',').map(unescape);
+
+    if(restore)
+      this.edtItems = serializedList.split(',').map(unescape)
+    else
+      this.items = serializedList.split(',').map(unescape);
   }
 }

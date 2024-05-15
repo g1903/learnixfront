@@ -4,5 +4,6 @@
   <div class="editor" (click)="$event.stopPropagation()">
     <textarea [(ngModel)]="edtText" rows="5" cols="30"></textarea>
     <button (click)="closeEditor(true)">Speichern</button>
+    <button (click)="restore()">Reset</button>
   </div>
 </div>

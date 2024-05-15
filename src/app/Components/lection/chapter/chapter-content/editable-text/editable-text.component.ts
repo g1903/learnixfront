@@ -20,8 +20,11 @@ export class EditableTextComponent {
   constructor(private http: HttpService) {}
 
   ngOnInit():void {
-    if(this.originalContent !== undefined)
+    if(this.originalContent !== undefined){
+      if(this.originalContent.content === '')
+        this.originalContent.content = 'Neuer Text';
       this.text = this.originalContent.content;
+    }
   }
 
   protected openEditor() {
@@ -37,13 +40,13 @@ export class EditableTextComponent {
     this.isEditing = false;
     if(save) {
       this.text = this.edtText;
+      this.save();
     }
   }
 
   protected restore(): void {
     if(this.originalContent !== undefined) {
-      this.text = this.originalContent.content;
-      this.edtText = this.text;
+      this.edtText = this.originalContent.content;
     }
   }
 }

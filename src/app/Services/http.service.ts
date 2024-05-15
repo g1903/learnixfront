@@ -151,4 +151,18 @@ export class HttpService {
     });
   }
 
+  public CreateChapterContent(newChapterContent: ChapterContent): Promise<ChapterContent>{
+    return new Promise((resolve, reject) => {
+      this.http.post('http://localhost:8081/chapter-contents', newChapterContent).subscribe({
+        next: (response: any) => {
+          resolve(response);
+        },
+        error: (error) => {
+          console.error(error);
+          reject(error);
+        }
+      });
+    });
+  }
+
 }

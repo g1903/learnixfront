@@ -10,11 +10,12 @@ import {EditableTableComponent} from "./chapter-content/editable-table/editable-
 import {EditableListComponent} from "./chapter-content/editable-list/editable-list.component";
 import {EditableTextComponent} from "./chapter-content/editable-text/editable-text.component";
 import {EditableHeaderComponent} from "./chapter-content/editable-header/editable-header.component";
+import {NewChapterContentComponent} from "./new-chapter-content/new-chapter-content.component";
 
 @Component({
   selector: 'app-chapter',
   standalone: true,
-  imports: [HttpClientModule, AsyncPipe, ChapterContentComponent, CommonModule, EditableTableComponent, EditableListComponent, EditableTextComponent, EditableHeaderComponent],
+  imports: [HttpClientModule, AsyncPipe, ChapterContentComponent, CommonModule, EditableTableComponent, EditableListComponent, EditableTextComponent, EditableHeaderComponent, NewChapterContentComponent],
   providers: [HttpService],
   templateUrl: './chapter.component.html',
   styleUrl: './chapter.component.css'
@@ -32,7 +33,7 @@ export class ChapterComponent {
     this.fetchData();
   }
 
-  private fetchData():void{
+  protected fetchData():void{
     if(this.chapter?.chapterId != undefined)
       this.content$ = this.http.GetChapterContent(this.chapter.chapterId);
   }

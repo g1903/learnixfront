@@ -25,8 +25,12 @@ export class EditableHeaderComponent {
   constructor(private http: HttpService) {}
 
   ngOnInit():void {
-    if(this.originalContent !== undefined)
+    if(this.originalContent !== undefined){
+      if(this.originalContent.content === '')
+        this.originalContent.content = 'Neuer Titel|h1';
+
       this.deserializeHeader(this.originalContent.content);
+    }
   }
 
   protected openEditor() {
@@ -53,7 +57,7 @@ export class EditableHeaderComponent {
 
   protected restore(): void {
     if(this.originalContent !== undefined)
-      this.deserializeHeader(this.originalContent.content);
+      this.deserializeHeader(this.originalContent.content, true);
   }
 
   private serializeHeader(): string {
@@ -62,10 +66,16 @@ export class EditableHeaderComponent {
     return `${serializedText}|${this.headerLevel}`;
   }
 
-  private deserializeHeader(serializedHeader: string): void {
+  private deserializeHeader(serializedHeader: string, restore= false): void {
     const unescape = (str: string): string => str.replace(/%2C/g, ',').replace(/%7C/g, '|');
     const [serializedText, headerLevel] = serializedHeader.split('|');
-    this.headerText = unescape(serializedText);
-    this.headerLevel = headerLevel;
+
+    if(restore) {
+      this.edtHeaderText = unescape(serializedText);
+      this.edtHeaderLevel = headerLevel;
+    } else {
+      this.headerText = unescape(serializedText);
+      this.headerLevel = headerLevel;
+    }
   }
 }
