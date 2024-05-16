@@ -3,8 +3,6 @@ import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {Lection} from "../../Models/Lection";
 import {RouterLink} from "@angular/router";
 import {ProgressChartComponent} from "../progress-chart/progress-chart.component";
-import {Observable} from "rxjs";
-import {LectionProgress} from "../../Models/LectionProgress";
 import {HttpService} from "../../Services/http.service";
 import {HttpClientModule} from "@angular/common/http";
 import {KeycloakService} from "keycloak-angular";
@@ -29,6 +27,7 @@ export class LektioncardComponent {
   @Input() add: boolean | undefined;
   @Output() remove = new EventEmitter<Lection>();
   protected lectionPercentage : number = 0;
+  protected owner: boolean = false;
 
   constructor(private httpService: HttpService, private keycloak: KeycloakService) {
     if(this.add === undefined)
@@ -42,6 +41,7 @@ export class LektioncardComponent {
 
   private getProgress(){
     const userGUID: string | undefined = this.keycloak.getKeycloakInstance().subject;
+    this.owner = userGUID === this.lection?.creatorGuid;
     let chapterCount: number = -1;
     if(userGUID != undefined && this.lection?.lectionId != undefined) {
       this.httpService.GetChapterCount(this.lection.lectionId).then((result) => {

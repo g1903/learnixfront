@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Lection} from "../Models/Lection";
 import {Chapter} from "../Models/Chapter";
@@ -120,11 +120,25 @@ export class HttpService {
     });
   }
 
-  public GetChapterContent(chapterId: number):Promise<ChapterContent[]>{
+  public GetChapterContent(chapterId: number):Observable<ChapterContent[]>{
+    return this.http.get<ChapterContent[]>('http://localhost:8081/chapter-contents/byChapter/'+chapterId,{
+      headers: new HttpHeaders()
+        .set('Content-Type','application/json')
+    });
+  }
+
+  public SaveChapterContent(chapterContent: ChapterContent, newContent: string): Promise<ChapterContent>{
+    const body = {
+      chapterContentId: chapterContent.chapterContentId,
+      contentType: chapterContent.contentType,
+      content: newContent,
+      contentOrder: chapterContent.contentOrder,
+      chapterId: chapterContent.chapterId
+    }
+
     return new Promise((resolve, reject) => {
-      this.http.get<ChapterContent[]>('http://localhost:8081/chapter-contents/byChapter/'+chapterId,{
-        headers: new HttpHeaders()
-          .set('Content-Type','application/json')
+      this.http.put<ChapterContent>('http://localhost:8081/chapter-contents/' + chapterContent.chapterContentId, body, {
+        headers: new HttpHeaders().set('Content-Type', 'application/json')
       }).subscribe({
         next: (response) => {
           resolve(response);
@@ -136,4 +150,84 @@ export class HttpService {
       });
     });
   }
+
+  public CreateChapterContent(newChapterContent: ChapterContent): Promise<ChapterContent>{
+    return new Promise((resolve, reject) => {
+      this.http.post('http://localhost:8081/chapter-contents', newChapterContent).subscribe({
+        next: (response: any) => {
+          resolve(response);
+        },
+        error: (error) => {
+          console.error(error);
+          reject(error);
+        }
+      });
+    });
+  }
+
+  public CreateChapter(newChapter: Chapter): Promise<Chapter>{
+    return new Promise((resolve, reject) => {
+      this.http.post('http://localhost:8081/chapters', newChapter).subscribe({
+        next: (response: any) => {
+          resolve(response);
+        },
+        error: (error) => {
+          console.error(error);
+          reject(error);
+        }
+      });
+    });
+  }
+
+  public CreateLection(newLection: Lection): Promise<Lection>{
+    return new Promise((resolve, reject) => {
+      this.http.post('http://localhost:8081/lections', newLection).subscribe({
+        next: (response: any) => {
+          resolve(response);
+        },
+        error: (error) => {
+          console.error(error);
+          reject(error);
+        }
+      });
+    });
+  }
+
+  public DeleteLection(LectionId: number):Observable<void>{
+    return this.http.delete<void>('http://localhost:8081/lections/' + LectionId,{
+      headers: new HttpHeaders()
+        .set('Content-Type','application/json')
+    });
+  }
+
+  public DeleteChapter(ChapterId: number):Observable<void>{
+    return this.http.delete<void>('http://localhost:8081/chapters/' + ChapterId,{
+      headers: new HttpHeaders()
+        .set('Content-Type','application/json')
+    });
+  }
+
+  public DeleteChapterContent(ChapterContentId: number):Observable<void>{
+    return this.http.delete<void>('http://localhost:8081/chapter-contents/' + ChapterContentId,{
+      headers: new HttpHeaders()
+        .set('Content-Type','application/json')
+    });
+  }
+
+  public MoveChapterContent(chapterContentId: number, moveUp: boolean): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.http.post('http://localhost:8081/chapter-contents/' + chapterContentId + '/move', moveUp)
+        .subscribe({
+          next: (response:any) => {
+            resolve(response);
+          },
+          error: (error) => {
+            reject(error);
+          }
+        });
+    });
+  }
+
+
+
 }

@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import {Observable, of} from "rxjs";
-import {Lection} from "../../Models/Lection";
 import {HttpService} from "../../Services/http.service";
 import {CommonModule} from "@angular/common";
 import {HttpClientModule} from "@angular/common/http";

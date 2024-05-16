@@ -68,13 +68,19 @@
   transition: background 100ms linear, color 100ms linear;
 }
 
-.cardDelete{
+.cardEdit{
   position: absolute;
   top: 3%;
   left: 90%;
 }
 
-.cardDelete:hover{
+.cardDelete{
+  position: absolute;
+  top: 3%;
+  left: 5%;
+}
+
+.cardEdit:hover, .cardDelete:hover{
   cursor: pointer;
 }
 
