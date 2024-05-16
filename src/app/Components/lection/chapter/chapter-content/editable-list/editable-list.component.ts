@@ -14,6 +14,7 @@ import {ChapterContent} from "../../../../../Models/ChapterContent";
 export class EditableListComponent {
   @Input() originalContent: ChapterContent | undefined;
   @Output() notifyParent: EventEmitter<boolean> = new EventEmitter();
+  @Input() editable!: boolean;
   protected items: string[] = [];
   protected edtItems: string[] = [];
   protected newItem: string = '';
@@ -31,11 +32,15 @@ export class EditableListComponent {
   }
 
   protected openEditor() {
+    if(!this.editable)
+      return;
     this.edtItems = [...this.items];
     this.isEditing = true;
   }
 
   protected closeEditor(save: boolean) {
+    if(!this.editable)
+      return;
     if (save) {
       this.items = [...this.edtItems];
       this.save();
@@ -44,22 +49,25 @@ export class EditableListComponent {
   }
 
   protected addItem() {
-    if (this.newItem.trim()) {
+    if (this.newItem.trim() && this.editable) {
       this.edtItems.push(this.newItem.trim());
       this.newItem = '';
     }
   }
 
   private save():void{
-    if(this.originalContent !== undefined)
+    if(this.originalContent !== undefined && this.editable)
       this.http.SaveChapterContent(this.originalContent, this.serializeList());
   }
 
   protected removeItem(index: number) {
-    this.edtItems.splice(index, 1);
+    if(this.editable)
+      this.edtItems.splice(index, 1);
   }
 
   protected updateItem(index: number, event: Event) {
+    if(!this.editable)
+      return;
     const inputElement = event.target as HTMLInputElement;
     this.edtItems[index] = inputElement.value;
   }
@@ -74,7 +82,7 @@ export class EditableListComponent {
   }
 
   protected delete():void{
-    if(this.originalContent !== undefined)
+    if(this.originalContent !== undefined && this.editable)
       this.http.DeleteChapterContent(this.originalContent.chapterContentId).subscribe(e => {
         this.notifyParent.emit();
       });

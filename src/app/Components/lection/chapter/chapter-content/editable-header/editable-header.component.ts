@@ -15,7 +15,7 @@ import {ChapterContent} from "../../../../../Models/ChapterContent";
 export class EditableHeaderComponent {
   @Input() originalContent: ChapterContent | undefined;
   @Output() notifyParent: EventEmitter<boolean> = new EventEmitter();
-  @Input() editable: boolean | undefined;
+  @Input() editable!: boolean;
   protected headerText: string = 'Titel 01';
   protected headerLevel: string = 'h1';
   protected edtHeaderText: string = '';
@@ -43,6 +43,8 @@ export class EditableHeaderComponent {
   }
 
   protected closeEditor(save: boolean) {
+    if(!this.editable)
+      return;
     this.isEditing = false;
     if(save){
       this.headerText = this.edtHeaderText;
@@ -52,7 +54,7 @@ export class EditableHeaderComponent {
   }
 
   private save():void {
-    if (this.originalContent !== undefined)
+    if (this.originalContent !== undefined && this.editable)
       this.http.SaveChapterContent(this.originalContent, this.serializeHeader());
   }
 

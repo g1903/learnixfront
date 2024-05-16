@@ -14,6 +14,7 @@ import {HttpService} from "../../../../../Services/http.service";
 export class EditableTableComponent {
   @Input() originalContent: ChapterContent | undefined;
   @Output() notifyParent: EventEmitter<boolean> = new EventEmitter();
+  @Input() editable!: boolean;
   protected headers: string[] = [];
   protected rows: string[][] = [];
   protected edtHeaders: string[] = [];
@@ -32,12 +33,16 @@ export class EditableTableComponent {
   }
 
   protected openEditor() {
+    if(!this.editable)
+      return;
     this.edtHeaders = this.headers.slice();
     this.edtRows = this.rows.map(subArray => subArray.slice());
     this.isEditing = true;
   }
 
   protected closeEditor(save: boolean) {
+    if(!this.editable)
+      return;
     if(save){
       this.headers = this.edtHeaders.slice();
       this.rows = this.edtRows.map(subArray => subArray.slice());
@@ -49,35 +54,48 @@ export class EditableTableComponent {
   }
 
   private save():void{
+    if(!this.editable)
+      return;
     if(this.originalContent !== undefined)
       this.http.SaveChapterContent(this.originalContent, this.serializeTable());
   }
 
   protected addRow() {
+    if(!this.editable)
+      return;
     const newRow = this.edtHeaders.map(() => '');
     this.edtRows.push(newRow);
   }
 
   protected removeRow(index: number) {
-    this.edtRows.splice(index, 1);
+    if(this.editable)
+      this.edtRows.splice(index, 1);
   }
 
   protected addColumn() {
+    if(!this.editable)
+      return;
     this.edtHeaders.push('New Header');
     this.edtRows.forEach(row => row.push(''));
   }
 
   protected removeColumn(index: number) {
+    if(!this.editable)
+      return;
     this.edtHeaders.splice(index, 1);
     this.edtRows.forEach(row => row.splice(index, 1));
   }
 
   protected updateHeader(index: number, event: Event) {
+    if(!this.editable)
+      return;
     const inputElement = event.target as HTMLInputElement;
     this.edtHeaders[index] = inputElement.value;
   }
 
   protected updateCell(rowIndex: number, colIndex: number, event: Event) {
+    if(!this.editable)
+      return;
     const inputElement = event.target as HTMLInputElement;
     this.edtRows[rowIndex][colIndex] = inputElement.value;
   }

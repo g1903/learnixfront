@@ -6,6 +6,9 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
+      <li *ngIf="editMode" class="nav-item">
+        <button type="button" class="btn btn-primary" (click)="openNewChapterDialog()">Chapter <i class="bi bi-plus-circle-fill"></i></button>
+      </li>
       <li *ngFor="let chapter of chapters$ | async" class="nav-item">
         <a class="nav-link" (click)="this.selectChapter(chapter.chapterId)">{{chapter.chapterName}}</a>
       </li>
@@ -15,4 +18,14 @@
 
 <h1>{{this.lection?.title}}</h1>
 
-<app-chapter [ngClass]="{'invisible': selectedChapterId !== chapter.chapterId}" *ngFor="let chapter of chapters$ | async" [chapter]="chapter"></app-chapter>
+<app-chapter [ngClass]="{'invisible': selectedChapterId !== chapter.chapterId}" *ngFor="let chapter of chapters$ | async" [chapter]="chapter" [editMode]="editMode"></app-chapter>
+
+<!-- Dialog für neun Chapter -->
+<div *ngIf="isDialogOpen" class="modal-backdrop">
+  <div class="modal-content">
+    <h3>Neue Lektion hinzufügen</h3>
+    <input type="text" [(ngModel)]="newChapterName" placeholder="Name der Lektion" />
+    <button (click)="addNewChapter()">Hinzufügen</button>
+    <button (click)="closeDialog()">Abbrechen</button>
+  </div>
+</div>

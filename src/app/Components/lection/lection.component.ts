@@ -7,11 +7,13 @@ import {HttpClientModule, HttpErrorResponse} from "@angular/common/http";
 import {Observable, of} from "rxjs";
 import {Chapter} from "../../Models/Chapter";
 import {ChapterComponent} from "./chapter/chapter.component";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {KeycloakService} from "keycloak-angular";
 
 @Component({
   selector: 'app-lection',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, ChapterComponent],
+  imports: [CommonModule, HttpClientModule, ChapterComponent, ReactiveFormsModule, FormsModule],
   providers: [HttpService],
   templateUrl: './lection.component.html',
   styleUrl: './lection.component.css'
@@ -22,13 +24,15 @@ export class LectionComponent {
   protected lection: Lection | undefined;
   protected selectedChapterId: number | undefined;
   protected chapters$: Observable<Chapter[]>;
+  protected isDialogOpen: boolean = false;
+  protected newChapterName = '';
 
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private http: HttpService) {
+              private http: HttpService,
+              private keycloak: KeycloakService) {
     this.chapters$ = of([]);
-    this.editMode = this.route.snapshot.queryParams['editMode'];
   }
 
   ngOnInit():void{
@@ -38,12 +42,36 @@ export class LectionComponent {
           this.router.navigateByUrl('/404');
       }
       this.lection = result;
+      if(this.route.snapshot.queryParams['editMode']) {
+        const userGUID: string | undefined = this.keycloak.getKeycloakInstance().subject;
+        if(userGUID !== undefined)
+          this.editMode = userGUID === this.lection.creatorGuid
+        else
+          this.editMode = false;
+      }
       this.chapters$ = this.http.GetChapters(this.lection.lectionId);
     });
   }
 
   protected selectChapter(chapterId:number){
     this.selectedChapterId = chapterId;
+  }
+
+  protected openNewChapterDialog() {
+    this.isDialogOpen = true;
+  }
+
+  protected closeDialog() {
+    this.isDialogOpen = false;
+  }
+
+  protected addNewChapter() {
+    if(this.lection !== undefined)
+      this.http.CreateChapter(new Chapter(-1,this.newChapterName, this.lection.lectionId)).then(result => {
+        //@ts-ignore
+        this.chapters$ = this.http.GetChapters(this.lection.lectionId);
+      });
+    this.closeDialog();
   }
 
 }

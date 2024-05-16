@@ -22,7 +22,8 @@ import {NewChapterContentComponent} from "./new-chapter-content/new-chapter-cont
 })
 export class ChapterComponent {
 
-  @Input() chapter: Chapter | undefined;
+  @Input() chapter!: Chapter;
+  @Input() editMode!: boolean;
   protected content$: Observable<ChapterContent[]>;
 
   constructor(private http: HttpService) {

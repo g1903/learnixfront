@@ -14,9 +14,11 @@ import {HttpService} from "../../../../../Services/http.service";
 export class EditableTextComponent{
   @Input() originalContent: ChapterContent | undefined;
   @Output() notifyParent: EventEmitter<boolean> = new EventEmitter();
+  @Input() editable!: boolean;
   protected text: string = '';
   protected edtText: string = '';
   protected isEditing: boolean = false;
+
 
   constructor(private http: HttpService) {}
 
@@ -29,15 +31,21 @@ export class EditableTextComponent{
   }
 
   protected openEditor() {
+    if(!this.editable)
+      return;
     this.edtText = this.text;
     this.isEditing = true;
   }
 
   private save():void{
+    if(!this.editable)
+      return;
     if(this.originalContent !== undefined)
       this.http.SaveChapterContent(this.originalContent, this.text);
   }
   protected closeEditor(save: boolean) {
+    if(!this.editable)
+      return;
     this.isEditing = false;
     if(save) {
       this.text = this.edtText;
@@ -46,12 +54,16 @@ export class EditableTextComponent{
   }
 
   protected restore(): void {
+    if(!this.editable)
+      return;
     if(this.originalContent !== undefined) {
       this.edtText = this.originalContent.content;
     }
   }
 
   protected delete():void{
+    if(!this.editable)
+      return;
     if(this.originalContent !== undefined)
       this.http.DeleteChapterContent(this.originalContent.chapterContentId).subscribe(e => {
         this.notifyParent.emit();
