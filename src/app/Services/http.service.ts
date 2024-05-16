@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Lection} from "../Models/Lection";
 import {Chapter} from "../Models/Chapter";
@@ -199,5 +199,21 @@ export class HttpService {
         .set('Content-Type','application/json')
     });
   }
+
+  public MoveChapterContent(chapterContentId: number, moveUp: boolean): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.http.post('http://localhost:8081/chapter-contents/' + chapterContentId + '/move', moveUp)
+        .subscribe({
+          next: (response:any) => {
+            resolve(response);
+          },
+          error: (error) => {
+            reject(error);
+          }
+        });
+    });
+  }
+
+
 
 }

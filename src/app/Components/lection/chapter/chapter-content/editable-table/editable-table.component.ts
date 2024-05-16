@@ -104,6 +104,17 @@ export class EditableTableComponent {
     return index;
   }
 
+  protected move(moveUp: boolean): void{{}
+    if(!this.editable)
+      return;
+    //@ts-ignore
+    this.http.MoveChapterContent(this.originalContent?.chapterContentId, moveUp).then((response) => {
+      this.notifyParent.emit();
+    }).catch((error:any) => {
+      console.log('Error:', error);
+    });
+  }
+
   protected restore(): void {
     if(this.originalContent !== undefined)
       this.deserializeTable(this.originalContent.content, true);

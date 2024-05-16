@@ -36,7 +36,7 @@ export class NewChapterContentComponent {
 
   protected addChapterContent() {
     if((Number(this.selectedType) !== ContentType.NONE) && (this.chapter !== undefined)) {
-      this.http.CreateChapterContent(new ChapterContent(-1, '', 7, Number(this.selectedType), this.chapter.chapterId)).then(result => {
+      this.http.CreateChapterContent(new ChapterContent(-1, '', 0, Number(this.selectedType), this.chapter.chapterId)).then(result => {
         this.notifyParent.emit();
       });
       this.closeDialog();

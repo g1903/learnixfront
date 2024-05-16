@@ -63,6 +63,17 @@ export class EditableHeaderComponent {
       this.deserializeHeader(this.originalContent.content, true);
   }
 
+  protected move(moveUp: boolean): void{{}
+    if(!this.editable)
+      return;
+    //@ts-ignore
+    this.http.MoveChapterContent(this.originalContent?.chapterContentId, moveUp).then((response) => {
+      this.notifyParent.emit();
+    }).catch((error:any) => {
+      console.log('Error:', error);
+    });
+  }
+
   private serializeHeader(): string {
     const escape = (str: string): string => str.replace(/,/g, '%2C').replace(/\|/g, '%7C');
     const serializedText = escape(this.headerText);
