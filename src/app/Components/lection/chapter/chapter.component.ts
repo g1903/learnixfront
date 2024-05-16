@@ -4,7 +4,7 @@ import {Observable, of} from "rxjs";
 import {ChapterContent} from "../../../Models/ChapterContent";
 import {HttpService} from "../../../Services/http.service";
 import {HttpClientModule} from "@angular/common/http";
-import {AsyncPipe, CommonModule} from "@angular/common";
+import {AsyncPipe, CommonModule, Location} from "@angular/common";
 import {ChapterContentComponent} from "./chapter-content/chapter-content.component";
 import {EditableTableComponent} from "./chapter-content/editable-table/editable-table.component";
 import {EditableListComponent} from "./chapter-content/editable-list/editable-list.component";
@@ -37,5 +37,13 @@ export class ChapterComponent {
   protected fetchData():void{
     if(this.chapter?.chapterId != undefined)
       this.content$ = this.http.GetChapterContent(this.chapter.chapterId);
+  }
+
+  protected deleteChapter() {
+    if(this.chapter !== undefined)
+      this.http.DeleteChapter(this.chapter.chapterId).subscribe(value => {
+        window.location.reload();
+      })
+
   }
 }

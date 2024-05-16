@@ -200,6 +200,13 @@ export class HttpService {
     });
   }
 
+  public DeleteChapter(ChapterId: number):Observable<void>{
+    return this.http.delete<void>('http://localhost:8081/chapters/' + ChapterId,{
+      headers: new HttpHeaders()
+        .set('Content-Type','application/json')
+    });
+  }
+
   public DeleteChapterContent(ChapterContentId: number):Observable<void>{
     return this.http.delete<void>('http://localhost:8081/chapter-contents/' + ChapterContentId,{
       headers: new HttpHeaders()
