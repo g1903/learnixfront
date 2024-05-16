@@ -1,6 +1,6 @@
 <h2>
   {{chapter.chapterName}}
-  <button type="button" class="btn btn-danger" (click)="deleteChapter()"><i class="bi bi-trash3-fill"></i></button>
+  <button *ngIf="editMode" type="button" class="btn btn-danger" (click)="deleteChapter()"><i class="bi bi-trash3-fill"></i></button>
 </h2>
 <div *ngFor="let c of content$ | async">
   <ng-container [ngSwitch]="c.contentType">

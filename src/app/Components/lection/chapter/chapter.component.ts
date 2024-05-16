@@ -40,7 +40,7 @@ export class ChapterComponent {
   }
 
   protected deleteChapter() {
-    if(this.chapter !== undefined)
+    if((this.chapter !== undefined) && this.editMode)
       this.http.DeleteChapter(this.chapter.chapterId).subscribe(value => {
         window.location.reload();
       })

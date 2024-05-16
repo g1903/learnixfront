@@ -26,8 +26,8 @@
 <!-- Dialog für neun Chapter -->
 <div *ngIf="isDialogOpen" class="modal-backdrop">
   <div class="modal-content">
-    <h3>Neue Lektion hinzufügen</h3>
-    <input type="text" [(ngModel)]="newChapterName" placeholder="Name der Lektion" />
+    <h3>Neues Kapitel hinzufügen</h3>
+    <input type="text" [(ngModel)]="newChapterName" placeholder="Name des Kapitel" />
     <button (click)="addNewChapter()">Hinzufügen</button>
     <button (click)="closeDialog()">Abbrechen</button>
   </div>
