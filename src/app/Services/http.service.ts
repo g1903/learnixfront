@@ -193,6 +193,13 @@ export class HttpService {
     });
   }
 
+  public DeleteLection(LectionId: number):Observable<void>{
+    return this.http.delete<void>('http://localhost:8081/lections/' + LectionId,{
+      headers: new HttpHeaders()
+        .set('Content-Type','application/json')
+    });
+  }
+
   public DeleteChapterContent(ChapterContentId: number):Observable<void>{
     return this.http.delete<void>('http://localhost:8081/chapter-contents/' + ChapterContentId,{
       headers: new HttpHeaders()

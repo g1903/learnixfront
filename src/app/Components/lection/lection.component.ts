@@ -74,4 +74,11 @@ export class LectionComponent {
     this.closeDialog();
   }
 
+  protected deleteLection():void{
+    if(this.lection !== undefined)
+      this.http.DeleteLection(this.lection.lectionId).subscribe(value => {
+        this.router.navigateByUrl('/mylections');
+      })
+  }
+
 }

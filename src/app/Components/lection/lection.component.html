@@ -7,6 +7,9 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li *ngIf="editMode" class="nav-item">
+        <button type="button" class="btn btn-danger" (click)="deleteLection()"><i class="bi bi-trash3-fill"></i></button>
+      </li>
+      <li *ngIf="editMode" class="nav-item">
         <button type="button" class="btn btn-primary" (click)="openNewChapterDialog()">Chapter <i class="bi bi-plus-circle-fill"></i></button>
       </li>
       <li *ngFor="let chapter of chapters$ | async" class="nav-item">
