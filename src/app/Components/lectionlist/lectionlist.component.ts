@@ -1,14 +1,13 @@
-import {Component, ComponentFactoryResolver, ViewChild, ViewContainerRef} from '@angular/core';
-import {filter, forkJoin, map, Observable, of, take} from "rxjs";
+import {Component, ViewChild, ViewContainerRef} from '@angular/core';
+import {forkJoin, map, Observable, of, take} from "rxjs";
 import {Lection} from "../../Models/Lection";
 import {HttpService} from "../../Services/http.service";
+import { FormsModule } from '@angular/forms';
 import {AsyncPipe, CommonModule, NgForOf} from "@angular/common";
 import {LektioncardComponent} from "../lektioncard/lektioncard.component";
 import {HttpClientModule} from "@angular/common/http";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {KeycloakService} from "keycloak-angular";
-import {LectionProgress} from "../../Models/LectionProgress";
-import {resolve} from "@angular/compiler-cli";
 
 @Component({
   selector: 'app-lectionlist',
@@ -18,7 +17,9 @@ import {resolve} from "@angular/compiler-cli";
     NgForOf,
     LektioncardComponent,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    RouterLink,
+    FormsModule
   ],
   providers: [HttpService],
   templateUrl: './lectionlist.component.html',
@@ -29,6 +30,9 @@ export class LectionlistComponent {
   protected lections$: Observable<Lection[]>;
   protected privateList: boolean = false;
   protected noLections: boolean = false;
+  protected isDialogOpen: boolean = false;
+  protected newLectionName = '';
+  protected newLectionDescription = '';
   private readonly UserGUID: string | undefined;
 
   constructor(private httpService: HttpService, private router: Router, private keycloak: KeycloakService) {
@@ -40,7 +44,7 @@ export class LectionlistComponent {
 
   protected removeLectionFromList(lectionToRemove: Lection): void {
 
-    if(this.privateList && this.UserGUID != undefined)
+    if(this.privateList && this.UserGUID !== undefined)
       this.httpService.RemoveUserProgress(this.UserGUID, lectionToRemove.lectionId);
     else if (this.UserGUID != undefined)
       this.httpService.CreateUserProgress(this.UserGUID, lectionToRemove.lectionId);
@@ -73,5 +77,24 @@ export class LectionlistComponent {
         return lections.filter(lection => !subscribedLectionIds.includes(lection.lectionId));
       })
     );
+  }
+
+  protected openNewLectionDialog() {
+    this.isDialogOpen = true;
+  }
+
+  protected closeDialog() {
+    this.isDialogOpen = false;
+  }
+
+  protected addNewLection() {
+    if(this.UserGUID !== undefined)
+      this.httpService.CreateLection(new Lection(-1,this.newLectionName, this.UserGUID ,this.newLectionDescription, 'X')).then(result => {
+        //@ts-ignore
+        this.httpService.CreateUserProgress(this.UserGUID, result.lectionId).then(res =>{
+          this.fetchData();
+        });
+      });
+    this.closeDialog();
   }
 }

@@ -12,6 +12,7 @@ export const routes: Routes = [
   { path: 'profile', component: UserprofileComponent, canActivate: [authGuard]},
   { path: 'lectionlist', component: LectionlistComponent, canActivate: [authGuard]},
   { path: 'mylections', component: LectionlistComponent, canActivate: [authGuard]},
+  { path: 'newLection', component: LectionComponent, canActivate: [authGuard]},
   { path: 'lection/:lectionId', component: LectionComponent, canActivate: [authGuard]},
   { path: 'lection/:lectionId/:chapterId', component: ChapterComponent, canActivate: [authGuard]},
   { path: '**', component: PageNotFoundComponent},

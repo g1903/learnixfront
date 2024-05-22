@@ -1,0 +1,34 @@
+<button (click)="openDialog()">Neuen Inhalt hinzufügen</button>
+
+<div *ngIf="isDialogOpen" class="dialog-backdrop" (click)="closeDialog()">
+  <div class="dialog" (click)="$event.stopPropagation()">
+    <h3>Typ des Inhalts wählen</h3>
+    <form>
+      <div *ngFor="let type of contentTypes">
+        <ng-container [ngSwitch]="type">
+          <label *ngSwitchCase="ContentType.HEADER">
+            <input type="radio" [(ngModel)]="selectedType" [value]="ContentType.HEADER">
+            Header
+          </label>
+
+          <label *ngSwitchCase="ContentType.TEXT">
+            <input type="radio" [(ngModel)]="selectedType" [value]="ContentType.TEXT">
+            Text
+          </label>
+
+          <label *ngSwitchCase="ContentType.LIST">
+            <input type="radio" [(ngModel)]="selectedType" [value]="ContentType.LIST">
+            Liste
+          </label>
+
+          <label *ngSwitchCase="ContentType.TABLE">
+            <input type="radio" [(ngModel)]="selectedType" [value]="ContentType.TABLE">
+            Tabelle
+          </label>
+        </ng-container>
+
+      </div>
+      <button (click)="addChapterContent()">Hinzufügen</button>
+    </form>
+  </div>
+</div>

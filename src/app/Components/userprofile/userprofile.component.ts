@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
 import {KeycloakService} from "keycloak-angular";
 import {HttpService} from "../../Services/http.service";
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClient, HttpClientModule, HttpHeaders} from "@angular/common/http";
 import {CommonModule} from "@angular/common";
 import {ImageCroppedEvent, ImageCropperModule} from 'ngx-image-cropper';
+import {Component} from "@angular/core";
+import {Observable} from "rxjs";
+import {FormsModule} from "@angular/forms";
+
 
 @Component({
   selector: 'app-userprofile',
@@ -12,6 +15,8 @@ import {ImageCroppedEvent, ImageCropperModule} from 'ngx-image-cropper';
     CommonModule,
     HttpClientModule,
     ImageCropperModule,
+    FormsModule,
+
   ],
   providers: [HttpService],
   templateUrl: './userprofile.component.html',
@@ -19,20 +24,29 @@ import {ImageCroppedEvent, ImageCropperModule} from 'ngx-image-cropper';
 })
 export class UserprofileComponent {
 
+  private keycloakBaseUrl: string= 'http://localhost:8080';
+  private realm: string=  'learnix';
+  private accessToken: string= '';
+
+
   imageChangedEvent: any = '';
   croppedImage: any = '';
   tempCroppedImage: any = '';
 
   protected username: string | undefined;
-  //protected email: string | undefined;
   protected roles: string[] | undefined;
   //protected profilePicture: File = null;
+  protected profileName: string | undefined;
+  private userId: string | undefined;
 
   constructor(private keycloak: KeycloakService, private httpService: HttpService) {
     this.username = this.keycloak.getUsername();
     this.roles = this.keycloak.getUserRoles();
-    //this.email = this.keycloak.
+    this.profileName = this.username;
   }
+
+
+
 
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
@@ -45,5 +59,4 @@ export class UserprofileComponent {
   applyCroppedImage() {
     this.croppedImage = this.tempCroppedImage;
   }
-
 }

@@ -1,0 +1,12 @@
+<p (click)="openEditor()">{{ text }}</p>
+
+<div *ngIf="isEditing" class="editor-backdrop" (click)="closeEditor(false)">
+  <div class="editor" (click)="$event.stopPropagation()">
+    <textarea [(ngModel)]="edtText" rows="5" cols="30"></textarea>
+    <button (click)="closeEditor(true)">Speichern</button>
+    <button (click)="restore()">Reset</button>
+    <button (click)="delete()">Löschen</button>
+    <button (click)="move(true)"><i class="bi bi-arrow-up"></i></button>
+    <button (click)="move(false)"><i class="bi bi-arrow-down"></i></button>
+  </div>
+</div>

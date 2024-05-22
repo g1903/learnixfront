@@ -1,0 +1,53 @@
+<div (click)="openEditor()">
+  <table>
+    <thead>
+    <tr>
+      <th *ngFor="let header of headers">{{ header }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let row of rows; trackBy: trackByIndex">
+      <td *ngFor="let cell of row; trackBy: trackByIndex">{{ cell }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="isEditing" class="editor-backdrop" (click)="closeEditor(false)">
+  <div class="editor" (click)="$event.stopPropagation()">
+    <h3>Table bearbeiten</h3>
+    <table>
+      <thead>
+      <tr>
+        <th *ngFor="let header of edtHeaders; let i = index; trackBy: trackByIndex">
+          <button (click)="removeColumn(i)">Spalte entfernen</button>
+          <input [value]="header" (input)="updateHeader(i, $event)" />
+        </th>
+        <th>
+          <button (click)="addColumn()">Spalte hinzufügen</button>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let row of edtRows; let rowIndex = index; trackBy: trackByIndex">
+        <td *ngFor="let cell of row; let colIndex = index; trackBy: trackByIndex">
+          <input [value]="cell" (input)="updateCell(rowIndex, colIndex, $event)" />
+        </td>
+        <td>
+          <button (click)="removeRow(rowIndex)">Reihe entfernen</button>
+        </td>
+      </tr>
+      <tr>
+        <td *ngFor="let header of edtHeaders"></td>
+        <td>
+          <button (click)="addRow()">Reihe hinzufügen</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <button (click)="closeEditor(true)">Speichern</button>
+    <button (click)="restore()">Reset</button>
+    <button (click)="move(true)"><i class="bi bi-arrow-up"></i></button>
+    <button (click)="move(false)"><i class="bi bi-arrow-down"></i></button>
+  </div>
+</div>
