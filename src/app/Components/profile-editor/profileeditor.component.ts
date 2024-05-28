@@ -11,7 +11,6 @@ export class ProfileeditorComponent {
   updateMyProfile() {
     const newFirstName = 'Your New First Name';
     const newLastName = 'Your New Last Name';
-    this.userProfileService.setAccessToken('your-access-token'); // Set the user's access token
     this.userProfileService.updateProfile(newFirstName, newLastName).subscribe({
       next: (response) => {
         console.log('Profile updated successfully', response);
